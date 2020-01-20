@@ -1,4 +1,4 @@
-.global fib
+.global main
 /*
 long fib(long x){
     if(x == 0) return 0;
@@ -51,3 +51,28 @@ fib_zero:
 mov $0, %rax
 leave 
 ret
+
+/*
+int
+main(int argc, char* argv[])
+{
+    if (argc != 2) {
+        printf("Usage:\n  %s N, where N > 0\n", argv[0]);
+        return 0;
+    }
+
+    printf("fib(%ld) = %ld\n", atol(argv[1]), atol(argv[1]));
+    return 0;
+}
+*/
+/*
+    variable mappings
+        argc: %rdi
+        y: %r15
+*/
+main:
+
+
+.data
+usage_error: .string "Usage:\n  %s N, where N > 0\n"
+fib_result: .string "fib(%ld) = %ld\n"

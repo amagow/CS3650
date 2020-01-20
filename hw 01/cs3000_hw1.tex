@@ -1,0 +1,306 @@
+\documentclass[11pt]{article}
+
+\newcommand{\yourname}{}
+\newcommand{\yourcollaborators}{}
+
+\def\comments{0}
+
+%format and packages
+
+%\usepackage{algorithm, algorithmic}
+\usepackage{algpseudocode}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{framed}
+\usepackage{verbatim}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{microtype}
+\usepackage{kpfonts}
+\usepackage{palatino}
+	\DeclareMathAlphabet{\mathtt}{OT1}{cmtt}{m}{n}
+	\SetMathAlphabet{\mathtt}{bold}{OT1}{cmtt}{bx}{n}
+	\DeclareMathAlphabet{\mathsf}{OT1}{cmss}{m}{n}
+	\SetMathAlphabet{\mathsf}{bold}{OT1}{cmss}{bx}{n}
+	\renewcommand*\ttdefault{cmtt}
+	\renewcommand*\sfdefault{cmss}
+	\renewcommand{\baselinestretch}{1.06}
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{DarkGreen}{rgb}{0.15,0.5,0.15}
+\definecolor{DarkRed}{rgb}{0.6,0.2,0.2}
+\definecolor{DarkBlue}{rgb}{0.2,0.2,0.6}
+\definecolor{DarkPurple}{rgb}{0.4,0.2,0.4}
+\usepackage[pdftex]{hyperref}
+\hypersetup{
+	linktocpage=true,
+	colorlinks=true,				% false: boxed links; true: colored links
+	linkcolor=DarkBlue,		% color of internal links
+	citecolor=DarkBlue,	% color of links to bibliography
+	urlcolor=DarkBlue,		% color of external links
+}
+
+\usepackage[boxruled,vlined,nofillcomment]{algorithm2e}
+	\SetKwProg{Fn}{Function}{\string:}{}
+	\SetKwFor{While}{While}{}{}
+	\SetKwFor{For}{For}{}{}
+	\SetKwIF{If}{ElseIf}{Else}{If}{:}{ElseIf}{Else}{:}
+	\SetKw{Return}{Return}
+	
+
+%enclosure macros
+\newcommand{\paren}[1]{\ensuremath{\left( {#1} \right)}}
+\newcommand{\bracket}[1]{\ensuremath{\left\{ {#1} \right\}}}
+\renewcommand{\sb}[1]{\ensuremath{\left[ {#1} \right\]}}
+\newcommand{\ab}[1]{\ensuremath{\left\langle {#1} \right\rangle}}
+
+%probability macros
+\newcommand{\ex}[2]{{\ifx&#1& \mathbb{E} \else \underset{#1}{\mathbb{E}} \fi \left[#2\right]}}
+\newcommand{\pr}[2]{{\ifx&#1& \mathbb{P} \else \underset{#1}{\mathbb{P}} \fi \left[#2\right]}}
+\newcommand{\var}[2]{{\ifx&#1& \mathrm{Var} \else \underset{#1}{\mathrm{Var}} \fi \left[#2\right]}}
+
+%useful CS macros
+\newcommand{\poly}{\mathrm{poly}}
+\newcommand{\polylog}{\mathrm{polylog}}
+\newcommand{\zo}{\{0,1\}}
+\newcommand{\pmo}{\{\pm1\}}
+\newcommand{\getsr}{\gets_{\mbox{\tiny R}}}
+\newcommand{\card}[1]{\left| #1 \right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\negl}{\mathrm{negl}}
+\newcommand{\eps}{\varepsilon}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\eqand}{\qquad \textrm{and} \qquad}
+\newcommand{\ind}[1]{\mathbb{I}\{#1\}}
+\newcommand{\sslash}{\ensuremath{\mathbin{/\mkern-3mu/}}}
+
+%mathbb
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+%mathcal
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\cZ}{\mathcal{Z}}
+
+%theorem macros
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{fact}[thm]{Fact}
+\newtheorem{clm}[thm]{Claim}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{coro}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{conj}[thm]{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+
+
+\newcommand{\instructor}{Drew van der Poel}
+\newcommand{\hwnum}{1}
+\newcommand{\hwdue}{Tuesday, January 21 at 11:59pm via \href{https://gradescope.com/courses/74204}{Gradescope}}
+
+\theoremstyle{theorem}
+\newtheorem{prob}{Problem}
+\newtheorem{sol}{Solution}
+
+\definecolor{cit}{rgb}{0.05,0.2,0.45} 
+\newcommand{\solution}{\medskip\noindent{\color{DarkBlue}\textbf{Solution:}}}
+
+\begin{document}
+{\Large 
+\begin{center}{CS3000: Algorithms \& Data} --- Spring '20 --- \instructor \end{center}}
+{\large
+\vspace{10pt}
+\noindent Homework~\hwnum \vspace{2pt}\\
+Due~\hwdue}
+
+\bigskip
+{\large
+\noindent Name: \yourname \vspace{2pt}\\ Collaborators: \yourcollaborators}
+
+\vspace{15pt}
+\begin{itemize}
+
+\item Make sure to put your name on the first page.  If you are using the \LaTeX~template we provided, then you can make sure it appears by filling in the \texttt{yourname} command.
+
+\item This assignment is due~\hwdue.  No late assignments will be accepted.  Make sure to submit something before the deadline.
+
+\item Solutions must be typeset in \LaTeX.  If you need to draw any diagrams, you may draw them by hand as long as they are embedded in the PDF.  I recommend using the source file for this assignment to get started.
+
+\item I encourage you to work with your classmates on the homework problems. \emph{If you do collaborate, you must write all solutions by yourself, in your own words.}  Do not submit anything you cannot explain.  Please list all your collaborators in your solution for each problem by filling in the \texttt{yourcollaborators} command.
+
+\item Finding solutions to homework problems on the web, or by asking students not enrolled in the class is strictly forbidden.
+
+\end{itemize}
+
+\newpage
+
+\begin{prob} Inductive Proofs (20 points) \end{prob}
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{[8 points]} Prove the following statement by induction: For every $n \in \N$, $\sum_{i=1}^{n} i^2 = \frac{n(n+1)(2n+1)}{6}$
+
+\solution
+\\Let's consider the base case, where n = 1:
+\begin{equation*}
+	1^2 = \frac{1 \cdot 2 \cdot 3} {6}
+\end{equation*}
+This is true.
+\\Assuming this is true for n = k - 1 
+\begin{equation*}
+	1^2 + 2^2 + 3^2 + \ldots + (k - 1)^2 = \frac{(k-1) \cdot (k) \cdot (2(k - 1)+1)} {6}  \tag{1}
+\end{equation*}
+
+Inductive case:
+we can prove that this is also true for n = k
+
+\begin{equation*}
+	1^2 + 2^2 + 3^2 + \ldots + (k - 1)^2 + k^2 
+\end{equation*}
+
+Substituting (1) in (2)
+\begin{equation*}
+	\frac{(k-1) \cdot (k) \cdot (2(k - 1)+1)} {6}+ (k+1)^2 
+\end{equation*}
+
+this can be written as:
+
+\begin{align*}
+	(1^2 + 2^2 + 3^2 + \ldots + (k-1)^2 ) + (k)^2 &=\frac{(k-1) \cdot k \cdot (2(k - 1)+1)} {6} + k^2 \\
+									&=k\cdot (\frac{(k-1)\cdot(2k-1)}{6} + k)\\
+									&=k\cdot (\frac{2k^2 +3k + 1}{6})\\
+									&=k\cdot (\frac{2k^2 +2k + k + 1}{6})\\
+									&= \frac{(k)(k+1)(2k+1)}{6}
+\end{align*}
+
+\qed
+
+\item \textbf{[8 points]} Prove the following statement by induction: For every $n \in \N$, $\sum_{i=1}^{n} \frac{1}{i^2} \leq 2 - \frac{1}{n}$
+
+\solution
+\\Let's consider the base case, n = 1:
+
+
+\item \textbf{[4 points]} Your friend shows you the following dubious theorem and proof.
+
+\begin{thm} In every set of $n \geq 1$ dice, all dice are the same color.   \end{thm}
+\begin{proof}
+
+\textbf{Inductive Hypothesis:} Let $H(k)$ be the statement: in every set of $k$ dice, all of the $k$ dice are the same color.  We will prove that $H(k)$ is true for every $k \in \N$.
+
+\noindent \textbf{Base Case:} Consider $H(1)$.  Because the set has only one die, it is the same color at itself, so $H(1)$ is true.
+
+\noindent \textbf{Inductive Step:}  We will show that for every $k \geq 1$, $H(k) \Longrightarrow H(k+1)$. Assume that $H(k)$ is true.  Consider a set of $k+1$ dice $d_1, \ldots, d_k, d_{k+1}$. By our assumption, the first $k$ dice are the same color.
+$$\underbrace{d_1, d_2, \ldots, d_k}_\text{same color}, d_{k+1}$$
+Also by our assumption, the last $k$ dice also have the same color.
+$$d_1,\underbrace{d_2, \ldots, d_k, d_{k+1}}_\text{same color}$$
+Therefore, by transitivity, all dice are the same color.
+
+Therefore, the claim holds for all $n$ by induction.
+\end{proof}
+
+What is the bug in this proof?
+
+\solution
+
+\end{enumerate}
+
+\newpage
+\begin{prob} Stable Matching (20 points) \end{prob}
+In class we showed that given \emph{any} set of rankings for $n$ doctors and $n$ hospitals, there always exists at least one stable matching of doctors and hospitals.  
+
+\begin{enumerate}[label=(\alph*)]
+\item  \textbf{[5 points]} Show that there is a set of rankings for $2$ doctors and $2$ hospitals such that there is a \emph{unique} stable matching.  Justify the claim that there is a unique stable matching.
+
+\solution
+
+\item  \textbf{[5 points]} Show that there is a set of rankings for $2$ doctors and $2$ hospitals such that there exist two distinct stable matchings.
+
+\solution
+
+\item  \textbf{[10 points]} Show that, for every $n$, there is a set of rankings for $2n$ doctors and $2n$ hospitals such that there are at least $2^n$ distinct stable matchings.  \emph{Hint: start with your answer to part (b) and build your ranking two pairs at a time.}
+
+\solution
+
+\end{enumerate}
+
+\newpage
+\begin{prob} Asymptotic Order of Growth (20 points) \end{prob}
+\begin{enumerate}[label=(\alph*)]
+\item  \textbf{[10 points]} Rank the following functions in increasing order of asymptotic growth rate.  That is, find an ordering $f_1, f_2, \ldots, f_{10}$ of the functions so that $f_i = O(f_{i+1})$. No justification is required.
+
+\begin{center}
+\begin{tabular}{ccccc}
+$n^3$ & $7^{\log_2 n}$ & $n!$ & $12^n$ & $\log_2 (n!)$  \\
+$2^{4n}$ & $100 n^{3/2}$ & $10n$ & $2^{\log_3 n}$ & $\log_2^3 n$
+\end{tabular}
+\end{center}
+
+\solution
+
+\vspace{-20pt}
+\begin{align*}
+    f_1(n) ={} &??? \\
+    f_2(n) ={} &??? \\
+    \dots &
+\end{align*}
+
+\item  \textbf{[10 points]} Suppose $f(n), g(n), h(n)$ are non-decreasing, non-negative functions and that $f(n) = O(h(n))$ and $g(n) = O(h(n))$.  Prove that the $f(n)g(n) = O(h(n)^2)$.
+
+\solution
+
+\end{enumerate}
+
+\newpage
+\begin{prob} What Does This Code Do? (20 points)\end{prob}
+
+You encounter the following mysterious piece of code.
+
+\begin{algorithm}
+\caption{Mystery Function}
+\Fn{$C(a,n)$}{
+	\If{$n=0$}{\Return $(1,a)$}
+	\ElseIf{$n=1$}{\Return $(a,a\cdot a)$}
+	\ElseIf{$n$ is even}{
+		$(u,v) \gets C(a, \lfloor n/2 \rfloor)$\\
+	\Return $(u \cdot u, u \cdot v)$
+	}\ElseIf{$n$ is odd}{
+		$(u,v) \gets C(a, \lfloor n/2 \rfloor)$\\
+		\Return $(u \cdot v, v \cdot v)$
+	}
+}
+\end{algorithm}
+
+\begin{enumerate}[label=(\alph*)]
+\item  \textbf{[3 points]}  What are the results of $C(a,2)$, $C(a,3)$, and $C(a,4)$.  You do not need to justify your answers.
+
+\solution
+
+\item   \textbf{[9 points]} What does the code do in general? Prove your assertion by induction on $n$.
+
+\solution
+
+\item  \textbf{[8 points]} In this problem you will analyze the running time of $C$ as a function of $n$.  Prove that, for every $n \in \N$, the number of multiplication operations performed in evaluating $C(a,n)$ is at most $2 \log_2 n + 1$.
+
+\solution
+
+\end{enumerate}
+
+\end{document}

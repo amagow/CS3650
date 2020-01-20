@@ -16,6 +16,11 @@ main(int argc, char* argv[])
         return 0;
     }
 
+    if (atol(argv[1]) < 0) {    
+        printf("Usage:\n  %s N, where N > 0\n", argv[0]);
+        return 0;
+    }
+
     printf("fib(%ld) = %ld\n", atol(argv[1]), fib(atol(argv[1])));
     return 0;
 }

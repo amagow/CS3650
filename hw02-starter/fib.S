@@ -101,15 +101,16 @@ mov %r15, %rsi
 mov %rax, %rdx
 mov $0, %al
 call printf
+mov $0, %rax
 jmp main_end
 
 usage_error:
 mov $usage_error_msg, %rdi
 call puts
+mov $1, %rax
 jmp main_end
 
 main_end:
-mov $0, %rax
 leave
 ret
 

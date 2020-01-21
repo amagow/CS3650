@@ -46,7 +46,7 @@ cmp $4, %rdi
 jne usage_err
 
 #mov 16(%rsi), 16(%rsi)
-cmpb $'+, 16(%rsi)
+cmp $'+, 16(%rsi)
 je add
 
 cmpb $'-, 16(%rsi)

@@ -84,7 +84,7 @@ jmp print_output
 print_output:
 mov $fmt, %rdi
 mov $0, %rsi
-mov $'+, %rdx
+mov $1, %rdx
 mov $0, %rcx 
 mov $0, %al
 call printf
@@ -95,5 +95,5 @@ ret
 
 .data
 usage_err_msg: .string "Usage:\n./acalc N op N"
-fmt: .string "%d %s %d = %d\n"
+fmt: .string "%d %d %d = %d\n"
 test: .string "%s"

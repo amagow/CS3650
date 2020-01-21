@@ -1,4 +1,4 @@
-#include <stdio.h>
+/*#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
@@ -27,3 +27,35 @@ int main(int argc, char const *argv[])
 
     return 0;
 }
+*/
+/*
+Variable mappings:
+    argc: %rdi
+    argv: %rsi
+*/
+.global main
+.text
+
+main:
+enter $0, $0
+
+cmp $4, %rdi
+jne usage_err
+
+mov 16(%rsi), %r9
+mov %r9, %rdi
+call puts
+jmp main_done
+
+usage_err:
+mov $usage_err_msg, %rdi
+call puts
+mov $1, %rax
+jmp main_done
+
+main_done:
+leave
+ret
+
+.data
+usage_err_msg: .string "%d %s %d = %d\n"

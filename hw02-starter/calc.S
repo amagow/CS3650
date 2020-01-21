@@ -46,16 +46,16 @@ cmp $4, %rdi
 jne usage_err
 
 mov 16(%rsi), %r12b
-cmpb %r12b, "+"
+cmpb %r12b, $'+
 je add
 
-cmpb %r12b, "-"
+cmpb %r12b, $'-
 je sub
 
-cmpb %r12b, "*"
+cmpb %r12b, $'*
 je mul
 
-cmpb %r12b, "/"
+cmpb %r12b, $'/
 je div
 
 #mov %r9, %rdi
@@ -84,7 +84,7 @@ jmp print_output
 print_output:
 mov $usage_err_msg, %rdi
 mov $0, %rsi
-mov "+", %rdx
+mov $'+, %rdx
 mov $0, %rcx 
 mov $0, %al
 call printf

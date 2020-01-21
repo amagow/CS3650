@@ -45,20 +45,18 @@ enter $0, $0
 cmp $4, %rdi
 jne usage_err
 
-mov $test, %rdi
-mov 16(%rsi), %rsi
-call printf
-jmp main_done
-cmp $'+, 16(%rsi)
+mov 16(%rsi), %rax
+
+cmp $'+, %al
 je add
 
-cmpb $'-, 16(%rsi)
+cmpb $'-, %al
 je sub
 
-cmpb $'*, 16(%rsi)
+cmpb $'*, %al
 je mul
 
-cmpb $'/, 16(%rsi)
+cmpb $'/, %al
 je div
 
 #mov %r9, %rdi
@@ -96,6 +94,6 @@ leave
 ret
 
 .data
-usage_err_msg: .string "Usage:\n./ccalc N op N"
+usage_err_msg: .string "Usage:\n./acalc N op N"
 fmt: .string "%d %s %d = %d\n"
 test: .string "%s"

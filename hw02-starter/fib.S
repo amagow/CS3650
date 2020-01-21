@@ -81,7 +81,7 @@ main(int argc, char* argv[])
 main:
 enter $0, $0
 
-cmp $2, %rdi
+cmp $1, %rdi
 je usage_error
 
 //atol(argv[1])
@@ -101,6 +101,7 @@ mov %r15, %rsi
 mov %rax, %rdx
 mov $0, %al
 call printf
+jmp main_end
 
 usage_error:
 mov $usage_error_msg, %rdi
@@ -114,5 +115,5 @@ ret
 
 
 .data
-usage_error_msg: .string "Usage:\n  %s N, where N > 0\n"
+usage_error_msg: .string "Usage:\n  %s N, where N > 0"
 fib_result: .string "fib(%ld) = %ld\n"

@@ -45,18 +45,18 @@ enter $0, $0
 cmp $4, %rdi
 jne usage_err
 
-mov 16(%rsi), %r12b
-cmpb $'+, %r12b
-je add
+#mov 16(%rsi), %r12b
+#cmpb $'+, %r12b
+#je add
 
-cmpb $'-, %r12b
-je sub
+#cmpb $'-, %r12b
+#je sub
 
-cmpb $'*, %r12b
-je mul
+#cmpb $'*, %r12b
+#je mul
 
-cmpb $'/, %r12b
-je div
+#cmpb $'/, %r12b
+#je div
 
 #mov %r9, %rdi
 #call puts

@@ -32,6 +32,9 @@ int main(int argc, char const *argv[])
 Variable mappings:
     argc: %rdi
     argv: %rsi
+    op1: %r13
+    operand: %r12
+    op2: %r10
 */
 .global main
 .text
@@ -42,16 +45,49 @@ enter $0, $0
 cmp $4, %rdi
 jne usage_err
 
-mov 16(%rsi), %r9
-mov %r9, %rdi
-call puts
-jmp main_done
+mov 16(%rsi), %r12
+cmpb %r12, "+"
+je add
+
+cmpb %r12, "-"
+je sub
+
+cmpb %r12, "*"
+je mul
+
+cmpb %r12, "/"
+je div
+
+#mov %r9, %rdi
+#call puts
+#jmp main_done
 
 usage_err:
 mov $usage_err_msg, %rdi
 call puts
 mov $1, %rax
 jmp main_done
+
+add:
+
+jmp print_output
+
+sub:
+jmp print_output
+
+mul:
+jmp print_output
+
+div:
+jmp print_output
+
+print_output:
+mov $usage_err_msg, %rdi
+mov $0, %rsi
+mov "+", %rdx
+mov $0, %rcx 
+mov $0, %al
+call printf
 
 main_done:
 leave

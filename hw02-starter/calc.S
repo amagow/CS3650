@@ -45,7 +45,9 @@ enter $0, $0
 cmp $4, %rdi
 jne usage_err
 
-#mov 16(%rsi), 16(%rsi)
+mov $test, %rdi
+mov 16(%rsi), %rsi
+call scanf
 cmp $'+, 16(%rsi)
 je add
 
@@ -95,3 +97,4 @@ ret
 .data
 usage_err_msg: .string "Usage:\n./ccalc N op N"
 fmt: .string "%d %s %d = %d\n"
+test: .string "%s"

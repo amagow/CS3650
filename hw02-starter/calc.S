@@ -47,7 +47,8 @@ jne usage_err
 
 mov $test, %rdi
 mov 16(%rsi), %rsi
-call scanf
+call printf
+jmp main_done
 cmp $'+, 16(%rsi)
 je add
 

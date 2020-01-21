@@ -106,7 +106,7 @@ ret
 usage_err_msg: .string "Usage:\n./acalc N op N"
 fmt: .string "%d %d %d = %d\n"
 test: .string "Jump correct"
-test_fmt: .string "%s"
+test_fmt: .string "%c"
 plus: .string "+"
 minus: .string "-"
 asterisk: .string "*"

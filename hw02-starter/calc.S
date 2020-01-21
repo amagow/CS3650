@@ -58,9 +58,9 @@ je mul
 cmpb $'/, 16(%rsi)
 je div
 
-mov %r9, %rdi
-call puts
-jmp main_done
+#mov %r9, %rdi
+#call puts
+#jmp main_done
 
 usage_err:
 mov $usage_err_msg, %rdi

@@ -87,7 +87,7 @@ je usage_error
 //atol(argv[1])
 mov 8(%rsi), %rdi
 call atol
-cmp $0, $rax
+cmp $0, %rax
 jl usage_error
 
 mov %rax, %r15

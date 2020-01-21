@@ -46,6 +46,10 @@ cmp $4, %rdi
 jne usage_err
 
 mov 16(%rsi), %rax
+mov $test_fmt, %rdi
+mov %rax, %rsi
+call printf
+jmp main_done
 
 cmp $86, %rax
 je test_correct
@@ -102,6 +106,7 @@ ret
 usage_err_msg: .string "Usage:\n./acalc N op N"
 fmt: .string "%d %d %d = %d\n"
 test: .string "Jump correct"
+test_fmt: .string "%d"
 plus: .string "+"
 minus: .string "-"
 asterisk: .string "*"

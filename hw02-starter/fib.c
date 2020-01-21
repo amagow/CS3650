@@ -11,14 +11,9 @@ long fib(long x){
 int
 main(int argc, char* argv[])
 {
-    if (argc != 2) {
+    if (argc != 2 || atol(argv[1]) < 0) {
         printf("Usage:\n  %s N, where N > 0\n", argv[0]);
-        return 1;
-    }
-
-    if (atol(argv[1]) < 0) {    
-        printf("Usage:\n  %s N, where N > 0\n", argv[0]);
-        return 1;
+        return -1;
     }
 
     printf("fib(%ld) = %ld\n", atol(argv[1]), fib(atol(argv[1])));

@@ -81,8 +81,8 @@ main(int argc, char* argv[])
 main:
 enter $0, $0
 
-cmp $1, %rdi
-je usage_error
+cmp $2, %rdi
+jne usage_error
 
 //atol(argv[1])
 mov 8(%rsi), %rdi

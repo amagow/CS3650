@@ -45,22 +45,22 @@ enter $0, $0
 cmp $4, %rdi
 jne usage_err
 
-#mov 16(%rsi), %r12b
-#cmpb $'+, %r12b
-#je add
+mov 16(%rsi), %r12b
+cmpb $'+, %r12b
+je add
 
-#cmpb $'-, %r12b
-#je sub
+cmpb $'-, %r12b
+je sub
 
-#cmpb $'*, %r12b
-#je mul
+cmpb $'*, %r12b
+je mul
 
-#cmpb $'/, %r12b
-#je div
+cmpb $'/, %r12b
+je div
 
-#mov %r9, %rdi
-#call puts
-#jmp main_done
+mov %r9, %rdi
+call puts
+jmp main_done
 
 usage_err:
 mov $usage_err_msg, %rdi
@@ -69,7 +69,6 @@ mov $1, %rax
 jmp main_done
 
 add:
-
 jmp print_output
 
 sub:
@@ -82,7 +81,7 @@ div:
 jmp print_output
 
 print_output:
-mov $usage_err_msg, %rdi
+mov $fmt, %rdi
 mov $0, %rsi
 mov $'+, %rdx
 mov $0, %rcx 
@@ -94,4 +93,5 @@ leave
 ret
 
 .data
-usage_err_msg: .string "%d %s %d = %d\n"
+usage_err_msg: .string "Usage:\n./ccalc N op N"
+fmt: .string "%d %s %d = %d\n"

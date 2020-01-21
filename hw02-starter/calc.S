@@ -47,17 +47,17 @@ jne usage_err
 
 mov 16(%rsi), %rax
 
-cmp $plus, %rax
-je add
+cmpb $'+, %al
+je test_correct
 
-cmp $minus, %rax
-je sub
+cmpb $'-, %al
+je test_correct
 
-cmp $asterisk, %rax
-je mul
+cmpb $'*, %al
+je test_correct
 
-cmp $forward_slash, %rax
-je div
+cmpb $'/, %al
+je test_correct
 
 #mov %r9, %rdi
 #call puts
@@ -67,6 +67,11 @@ usage_err:
 mov $usage_err_msg, %rdi
 call puts
 mov $1, %rax
+jmp main_done
+
+test_correct:
+mov $test, %rdi
+call puts
 jmp main_done
 
 add:
@@ -96,6 +101,7 @@ ret
 .data
 usage_err_msg: .string "Usage:\n./acalc N op N"
 fmt: .string "%d %d %d = %d\n"
+test: .string "Jump correct"
 plus: .string "+"
 minus: .string "-"
 asterisk: .string "*"

@@ -6,13 +6,12 @@ int main(int argc, char const *argv[])
 {
     if(argc != 4 || (strncmp(argv[2], "+", 8) && strncmp(argv[2], "-", 8) && strncmp(argv[2], "*", 8) && strncmp(argv[2], "/", 8) ) ){
         puts("Usage:\n./ccalc N op N");
-        printf("%d\n", strncmp(argv[2], "+", 8));
         return 1;
     }
 
     int x = atoi(argv[1]);
     int y = atoi(argv[3]);
-    String fmt = "%d %s %d = %d\n";
+    char * fmt = "%d %s %d = %d\n";
 
     if(!strncmp(argv[2], "+", 8))
         printf(fmt, x, argv[2], y, x + y);

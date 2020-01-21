@@ -47,16 +47,16 @@ jne usage_err
 
 mov 16(%rsi), %rax
 
-cmpb $'+, %al
+cmpb $plus, %al
 je add
 
-cmpb $'-, %al
+cmpb $minus, %al
 je sub
 
-cmpb $'*, %al
+cmpb $asterisk, %al
 je mul
 
-cmpb $'/, %al
+cmpb $forward_slash, %al
 je div
 
 #mov %r9, %rdi
@@ -96,4 +96,7 @@ ret
 .data
 usage_err_msg: .string "Usage:\n./acalc N op N"
 fmt: .string "%d %d %d = %d\n"
-test: .string "%s"
+plus: .asciiz "+"
+minus: .asciiz "-"
+asterisk: .asciiz "*"
+forward_slash: .asciiz "/"

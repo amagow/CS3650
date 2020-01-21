@@ -45,17 +45,17 @@ enter $0, $0
 cmp $4, %rdi
 jne usage_err
 
-mov 16(%rsi), %r12b
-cmpb %r12b, $'+
+mov 16(%rsi), %r12
+cmp %r12, $'+
 je add
 
-cmpb %r12b, $'-
+cmp %r12, $'-
 je sub
 
-cmpb %r12b, $'*
+cmp %r12, $'*
 je mul
 
-cmpb %r12b, $'/
+cmp %r12, $'/
 je div
 
 #mov %r9, %rdi

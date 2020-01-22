@@ -59,16 +59,16 @@ call atoi
 mov %rax, %r14
 
 cmpb $'+, %al
-je add
+je add_jmp
 
 cmpb $'-, %al
-je sub
+je sub_jmp
 
 cmpb $'*, %al
-je mul
+je mul_jmp
 
 cmpb $'/, %al
-je div
+je div_jmp
 
 usage_err:
 mov $usage_err_msg, %rdi
@@ -77,22 +77,24 @@ mov $1, %rax
 jmp main_done
 
 
-add:
+add_jmp:
+mov $test_fmt,%rdi
+call puts
 add %r13, %r14
 mov %r14, %r8
 jmp print_output
 
-sub:
+sub_jmp:
 sub %r13, %r14
 mov %r14, %r8
 jmp print_output
 
-mul:
+mul_jmp:
 imul %r13, %r14
 mov %r14, %r8
 jmp print_output
 
-div:
+div_jmp:
 mov %r13, %rax
 cqo
 idiv %r14
@@ -114,3 +116,4 @@ ret
 .data
 usage_err_msg: .string "Usage:\n./acalc N op N"
 fmt: .string "%d %s %d = %d\n"
+test_fmt: .string "jump"

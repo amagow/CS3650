@@ -44,6 +44,8 @@ enter $0, $0
 cmp $4, %rdi
 jne usage_err
 
+mov %rsi, %r12
+
 #int x = atoi(argv[1]);
 mov 8(%r12), %rdi
 call atoi
@@ -55,7 +57,6 @@ call atoi
 mov %rax, %r14
 
 
-mov %rsi, %r12
 mov 16(%r12), %rax
 mov (%rax), %al
 

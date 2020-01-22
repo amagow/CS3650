@@ -46,10 +46,6 @@ cmp $4, %rdi
 jne usage_err
 
 mov 16(%rsi), %rax
-mov $test_fmt, %rdi
-mov %rax, %rsi
-call printf
-jmp main_done
 
 cmp $86, %rax
 je test_correct

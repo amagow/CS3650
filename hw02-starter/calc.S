@@ -46,6 +46,7 @@ cmp $4, %rdi
 jne usage_err
 
 mov 16(%rsi), %rax
+mov (%rax), %al
 
 cmpb $42, %al
 je test_correct

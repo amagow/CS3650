@@ -86,8 +86,8 @@ mov %rax, %r8
 jmp print_output
 
 sub_jmp:
-mov %r14, %rax
-sub %r13, %rax
+mov %r13, %rax
+sub %r14, %rax
 mov %rax, %r8
 jmp print_output
 

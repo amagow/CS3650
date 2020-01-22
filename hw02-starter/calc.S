@@ -47,16 +47,16 @@ jne usage_err
 
 mov 16(%rsi), %rax
 
-cmp $86, %rax
+cmpb $43, %al
 je test_correct
 
-cmpb $'-, %al
+cmpb $45, %al
 je test_correct
 
-cmpb $'*, %al
+cmpb $42, %al
 je test_correct
 
-cmpb $'/, %al
+cmpb $47, %al
 je test_correct
 
 #mov %r9, %rdi

@@ -80,18 +80,21 @@ jmp main_done
 
 
 add_jmp:
-add %r13, %r14, %rax
+mov %r14, %rax
+add %r13, %rax
 mov %rax, %r8
 jmp print_output
 
 sub_jmp:
-sub %r13, %r14, %rax
+mov %r14, %rax
+sub %r13, %rax
 mov %rax, %r8
 jmp print_output
 
 mul_jmp:
-imul %r13, %r14
-mov %r14, %r8
+mov %r14, %rax
+imul %r13, %rax
+mov %rax, %r8
 jmp print_output
 
 div_jmp:

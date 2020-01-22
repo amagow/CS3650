@@ -45,7 +45,7 @@ enter $0, $0
 cmp $4, %rdi
 jne usage_err
 
-mov $2, %rax
+mov 16(%rsi), %rax
 
 cmpb $42, %al
 je test_correct

@@ -80,8 +80,6 @@ jmp main_done
 
 
 add_jmp:
-mov $test_fmt,%rdi
-call puts
 add %r13, %r14
 mov %r14, %r8
 jmp print_output
@@ -118,4 +116,3 @@ ret
 .data
 usage_err_msg: .string "Usage:\n./acalc N op N"
 fmt: .string "%d %s %d = %d\n"
-test_fmt: .string "jump"

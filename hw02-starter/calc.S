@@ -31,10 +31,9 @@ int main(int argc, char const *argv[])
 /*
 Variable mappings:
     argc: %rdi
-    argv: %rsi
+    argv: %r12
     op1: %r13
-    operand: %r12
-    op2: %r10
+    op2: %r14
 */
 .global main
 .text
@@ -45,24 +44,31 @@ enter $0, $0
 cmp $4, %rdi
 jne usage_err
 
-mov 16(%rsi), %rax
+mov %rsi, %r12
+mov 16(%r12), %rax
 mov (%rax), %al
 
+#int x = atoi(argv[1]);
+mov 8(%12), %rdi
+call atoi
+mov %rax, %r13
+
+#int y = atoi(argv[3]);
+mov 24(%12), %rdi
+call atoi
+mov %rax, %r14
+
 cmpb $'+, %al
-je test_correct
+je add
 
 cmpb $'-, %al
-je test_correct
+je sub
 
 cmpb $'*, %al
-je test_correct
+je mul
 
 cmpb $'/, %al
-je test_correct
-
-#mov %r9, %rdi
-#call puts
-#jmp main_done
+je div
 
 usage_err:
 mov $usage_err_msg, %rdi
@@ -70,28 +76,34 @@ call puts
 mov $1, %rax
 jmp main_done
 
-test_correct:
-mov $test, %rdi
-call puts
-jmp main_done
 
 add:
+add %r13, %r14
+mov %r14, %r8
 jmp print_output
 
 sub:
+sub %r13, %r14
+mov %r14, %r8
 jmp print_output
 
 mul:
+imul %r13, %r14
+mov %r14, %r8
 jmp print_output
 
 div:
+mov %r13, %rax
+cqo
+idiv %r14
+mov %rax, %r8
 jmp print_output
 
 print_output:
 mov $fmt, %rdi
-mov $0, %rsi
-mov $1, %rdx
-mov $0, %rcx 
+mov %r13, %rsi
+mov 16(%r12), %rdx
+mov %r14, %rcx 
 mov $0, %al
 call printf
 
@@ -101,10 +113,4 @@ ret
 
 .data
 usage_err_msg: .string "Usage:\n./acalc N op N"
-fmt: .string "%d %d %d = %d\n"
-test: .string "Jump correct"
-test_fmt: .string "%d"
-plus: .string "+"
-minus: .string "-"
-asterisk: .string "*"
-forward_slash: .string "/"
+fmt: .string "%d %s %d = %d\n"

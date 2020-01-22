@@ -49,12 +49,12 @@ mov 16(%r12), %rax
 mov (%rax), %al
 
 #int x = atoi(argv[1]);
-mov 8(%12), %rdi
+mov 8(%r12), %rdi
 call atoi
 mov %rax, %r13
 
 #int y = atoi(argv[3]);
-mov 24(%12), %rdi
+mov 24(%r12), %rdi
 call atoi
 mov %rax, %r14
 

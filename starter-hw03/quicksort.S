@@ -158,10 +158,6 @@ for_loop_print_done:
 jmp main_done
 
 main_done:
-  //printf("\n");
-  mov $new_line, %rdi
-  mov $0, %al
-  call printf
 
   //printf("\n");
   mov $new_line, %rdi

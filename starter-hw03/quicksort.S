@@ -121,13 +121,17 @@ for (long ii = 0; ii < nn; ++ii) {
   jmp for_loop_input
 
 
-  #printf("%ld\n", nn);
+
+for_loop_input_done:
+
+#printf("%ld\n", nn);
   mov $int_fmt, %rdi
   mov 8(%rsp), %rsi
   mov $0, %al
   call printf
-
   mov $0, %r15
+
+  jmp for_loop_print
 
 for_loop_print:
 /*

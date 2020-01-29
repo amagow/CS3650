@@ -163,7 +163,12 @@ main_done:
   mov $0, %al
   call printf
 
+  //printf("\n");
+  mov $new_line, %rdi
+  mov $0, %al
+  call printf
 
+ 
   //return 0;
 
   leave

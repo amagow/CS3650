@@ -74,6 +74,8 @@ swap:
   cmp %rsi, %rdx
   je swap_done
 
+  mov $int_fmt, %rdi
+  call puts
   //long tmp = xs[ii];
   mov (%rdi, %rsi, 8), %rcx
   mov (%rdi, %rdx, 8), %rax

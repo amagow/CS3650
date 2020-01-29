@@ -158,16 +158,11 @@ for_loop_print_done:
 jmp main_done
 
 main_done:
-
-  mov $new_line, %rdi
-  mov $0, %al
-  call printf
-
   //printf("\n");
   mov $new_line, %rdi
   mov $0, %al
   call printf
-
+  
   //free(xs);
   mov (%r12), %rdi
   call free

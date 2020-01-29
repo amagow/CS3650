@@ -141,7 +141,7 @@ cmp %r15, 8(%rsp)
 jge for_loop_input_done
 
 mov $int_fmt, %rdi
-mov (%r12, %r15, 8)
+mov (%r12, %r15, 8), %rsi
 mov $0, %al
 call printf
 

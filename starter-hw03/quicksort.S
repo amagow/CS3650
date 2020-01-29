@@ -30,6 +30,7 @@ mov $int_fmt, %rdi
 mov $0, %al
 call printf
 
+mov $0, %rax
 cmp $1, %rax
 jne read_int_error
 

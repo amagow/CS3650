@@ -139,12 +139,6 @@ for (long ii = 0; ii < nn; ++ii) {
         printf("%ld ", xs[ii]);
     }
 */
-
-mov $int_fmt, %rdi
-mov 8(%rsp), %rsi
-mov $0, %al
-call printf
-
 cmp  8(%rsp), %r15
 jge for_loop_print_done
 

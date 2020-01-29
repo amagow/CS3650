@@ -201,9 +201,6 @@ quicksort:
   push %r15
   enter $0, $0
 
-  mov $int_fmt, %rdi
-  call puts
-
   mov %rdi, %r12
   mov %rsi, %r13
   mov %rdx, %r14

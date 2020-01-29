@@ -111,6 +111,10 @@ for (long ii = 0; ii < nn; ++ii) {
         read_int(&(xs[ii]));
     }
 */
+  mov $int_fmt, %rdi
+  mov %r15, %rsi
+  call printf
+
   cmp %r15, 8(%rsp)
   jge for_loop_input_done
 

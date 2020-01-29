@@ -136,13 +136,13 @@ partition_for:
 //for (; jj < (hi - 1); ++jj)
 
   cmp %r15, %r13
-  jge partition_done
+  jle partition_done
 
 /*
 if (xs[jj] < pivot)
 */
   cmp (%r12, %r15, 8), %rbx
-  jl  partition_swap
+  jg  partition_swap
   jmp partition_inc
 
 partition_swap:
@@ -220,9 +220,6 @@ quicksort:
   mov %r14, %rdx
   call partition
   mov %rax, %r15
-
-  mov $int_fmt, %rdi
-  call puts
 
   //quicksort(xs, lo, pp);
   mov %r12, %rdi

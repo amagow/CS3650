@@ -53,6 +53,197 @@ read_int_error:
   syscall
 
 /*
+void
+swap(long* xs, long ii, long jj)
+{
+    if (ii != jj) {
+        long tmp = xs[ii];
+        xs[ii] = xs[jj];
+        xs[jj] = tmp;
+    }
+}
+*/
+/*
+Variable mappings
+xs: %rdi
+ii: %rsi
+jj: %rdx
+*/
+swap:
+  enter $0, $0
+  cmp %rsi, %rdx
+  je swap_done
+
+  //long tmp = xs[ii];
+  mov (%rdi, %rsi, 8), %rcx
+  mov (%rdi, %rdx, 8), %rax
+  mov %rcx, (%rdi, %rdx, 8)
+  mov %rax, (%rdi, %rsi, 8) 
+
+swap_done:
+  leave
+  ret
+
+
+/*
+long
+partition(long* xs, long lo, long hi)
+{
+    long pivot = xs[hi - 1];
+
+    long ii = lo;
+    long jj = lo;
+    for (; jj < (hi - 1); ++jj) {
+        if (xs[jj] < pivot) {
+            swap(xs, ii, jj);
+            ++ii;
+        }
+    }
+    swap(xs, ii, hi - 1);
+    return ii;
+}
+*/
+/*
+Variable Mappings
+xs: %r12
+lo: %rsi
+hi: %r13
+ii: %r14
+jj: %r15
+pivot: %rbx
+*/
+partition:
+  push %r12
+  push %r13
+  push %r14
+  push %r15
+  push %rbx
+  enter $8, $0
+
+  mov %rdi, %r12
+  mov %rdx, %r13
+  //(hi - 1)
+  dec %r13
+  //long pivot = xs[hi - 1];
+  mov (%r12, %r13, 8),%rbx
+  //long ii = lo;
+  //long jj = lo;
+  mov %rsi, %r14
+  mov %rsi, %r15
+  jmp partition_for
+
+partition_for:
+//for (; jj < (hi - 1); ++jj)
+
+  cmp %r15, %r13
+  jge partition_done
+
+/*
+if (xs[jj] < pivot)
+*/
+  cmp (%r12, %r15, 8), %rbx
+  jl  partition_swap
+  jmp partition_inc
+
+partition_swap:
+//swap(xs, ii, jj);
+//++ii;
+mov %r12, %rdi
+mov %r14, %rsi
+mov %r15, %rdx
+call swap
+inc %r14
+jmp partition_inc
+
+partition_inc:
+  inc %r15
+  jmp partition_for
+
+partition_done:
+  //swap(xs, ii, hi - 1);
+  mov %r12, %rdi
+  mov %r14, %rsi
+  mov %r13, %rdx
+  call swap
+  //return ii;
+  mov %r14, %rax
+  leave
+  pop %rbx
+  pop %r15
+  pop %r14
+  pop %r13
+  pop %r12
+  ret
+
+/*
+void
+quicksort(long* xs, long lo, long hi)
+{
+    if (hi - lo < 1) {
+        return;
+    }
+
+    long pp = partition(xs, lo, hi);
+    quicksort(xs, lo, pp);
+    quicksort(xs, pp + 1, hi);
+}
+*/
+/*Variable Mappings
+xs: %r12
+lo: %r13
+hi: %r14
+pp: %r15
+*/
+quicksort:
+  push %r12
+  push %r13
+  push %r14
+  push %r15
+  enter $0, $0
+
+  mov %rdi, %r12
+  mov %rsi, %r13
+  mov %rdx, %r14
+  /*
+  if (hi - lo < 1) {
+        return;
+    }
+  */
+  mov %r14, %rcx
+  sub %r13, %rcx
+  cmp $1, %rcx
+  jg quicksort_done
+
+  //long pp = partition(xs, lo, hi);
+  mov %r12, %rdi
+  mov %r13, %rsi
+  mov %r14, %rdx
+  call partition
+  mov %rax, %r15
+  //quicksort(xs, lo, pp);
+  mov %r12, %rdi
+  mov %r13, %rsi
+  mov %r15, %rdx
+  call quicksort
+  //quicksort(xs, pp + 1, hi);
+  inc %r15
+  mov %r12, %rdi
+  mov %r15, %rsi
+  mov %r14, %rdx
+  call quicksort
+
+quicksort_done:
+  leave
+  pop %r15
+  pop %r14
+  pop %r13
+  pop %r12
+  ret
+
+
+
+
+/*
 int
 main(int _argc, char* _argv[])
 {
@@ -87,7 +278,7 @@ ii: %r15
 */
 main:
   push %r12
-  push %r13
+  push %r15
   //Initialise space on the stack;  long nn;
   enter $16, $0
 
@@ -126,6 +317,12 @@ for (long ii = 0; ii < nn; ++ii) {
 
 for_loop_input_done:
 
+//quicksort(xs, 0, nn);
+mov %r12, %rdi
+mov $0, %rsi
+mov 8(%rsp), %rdx
+call quicksort
+
 #printf("%ld\n", nn);
   mov $int_fmt_nl, %rdi
   mov 8(%rsp), %rsi
@@ -153,11 +350,14 @@ inc %r15
 jmp for_loop_print
 
 for_loop_print_done:
-
-
 jmp main_done
 
 main_done:
+
+  //printf("\n");
+  mov $new_line, %rdi
+  mov $0, %al
+  call printf
 
   //printf("\n");
   mov $new_line, %rdi

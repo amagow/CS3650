@@ -22,6 +22,8 @@ read_int:
 push %r12
 enter $8, $0
 
+mov %rdi, %r12
+
 //scanf("%ld", ptr)
 mov $int_fmt, %rdi
 lea (%r12), %rsi

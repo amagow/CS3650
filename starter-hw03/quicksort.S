@@ -220,6 +220,10 @@ quicksort:
   mov %r14, %rdx
   call partition
   mov %rax, %r15
+
+  mov %int_fmt, %rdi
+  call puts
+
   //quicksort(xs, lo, pp);
   mov %r12, %rdi
   mov %r13, %rsi

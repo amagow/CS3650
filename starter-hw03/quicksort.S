@@ -116,7 +116,7 @@ for (long ii = 0; ii < nn; ++ii) {
   call printf
 
   cmp %r15, 8(%rsp)
-  jge for_loop_input_done
+  jle for_loop_input_done
 
   lea (%r12, %r15, 8), %rdi
   call printf

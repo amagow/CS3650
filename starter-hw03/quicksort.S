@@ -112,7 +112,7 @@ for (long ii = 0; ii < nn; ++ii) {
     }
 */
   mov $int_fmt, %rdi
-  mov %r15, %rsi
+  mov 8(%rsp), %rsi
   call printf
 
   cmp %r15, 8(%rsp)

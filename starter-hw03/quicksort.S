@@ -97,9 +97,6 @@ main:
   mov $0, %al
   call printf
 
-  mov $bad_input, %rdi
-  call puts
-
 main_done:
   leave
   pop %r13

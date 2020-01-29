@@ -76,7 +76,7 @@ main(int _argc, char* _argv[])
 /*
 Variable Mappings
 argc: %rdi
-nn: %r12
+nn: 8(%rsp)
 
 
 */
@@ -85,7 +85,16 @@ main:
   push %r13
   enter $16, $0
 
+  #read_int(&nn);
+  mov $8, %rdi
+  add %rsp, %rdi
+  call read_int
+
+  #Test
   mov $int_fmt, %rdi
+  mov %rax, %rsi
+  mov $0, %al
+  call printf
 
   mov $bad_input, %rdi
   call puts

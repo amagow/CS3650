@@ -120,8 +120,6 @@ for (long ii = 0; ii < nn; ++ii) {
   inc %r15
   jmp for_loop_input
 
-for_loop_input_done:
-
 
   #printf("%ld\n", nn);
   mov $int_fmt, %rdi
@@ -138,7 +136,7 @@ for (long ii = 0; ii < nn; ++ii) {
     }
 */
 cmp %r15, 8(%rsp)
-jge for_loop_input_done
+jge for_loop_print_done
 
 mov $int_fmt, %rdi
 mov (%r12, %r15, 8), %rsi
@@ -149,7 +147,7 @@ inc %r15
 jmp for_loop_print
 
 for_loop_print_done:
-
+jmp main_done
 
 main_done:
   //printf("\n");

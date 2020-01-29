@@ -116,10 +116,10 @@ for (long ii = 0; ii < nn; ++ii) {
   call printf
 
   cmp %r15, 8(%rsp)
-  jle for_loop_input_done
+  jge for_loop_input_done
 
   lea (%r12, %r15, 8), %rdi
-  call printf
+  call read_int
 
   inc %r15
   jmp for_loop_input

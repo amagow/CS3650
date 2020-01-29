@@ -212,7 +212,7 @@ quicksort:
   mov %r14, %rcx
   sub %r13, %rcx
   cmp $1, %rcx
-  jg quicksort_done
+  jl quicksort_done
 
   //long pp = partition(xs, lo, hi);
   mov %r12, %rdi
@@ -220,6 +220,9 @@ quicksort:
   mov %r14, %rdx
   call partition
   mov %rax, %r15
+
+  mov $int_fmt, %rdi
+  call puts
 
   //quicksort(xs, lo, pp);
   mov %r12, %rdi

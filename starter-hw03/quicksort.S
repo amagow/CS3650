@@ -3,6 +3,8 @@
 bad_input: .string "bad input"
 int_fmt: .string "%ld"
 new_line: .string "\n"
+int_fmt_nl: .string "%ld\n"
+int_fmt_space: .string "%ld "
 
 .text
 /*
@@ -125,7 +127,7 @@ for (long ii = 0; ii < nn; ++ii) {
 for_loop_input_done:
 
 #printf("%ld\n", nn);
-  mov $int_fmt, %rdi
+  mov $int_fmt_nl, %rdi
   mov 8(%rsp), %rsi
   mov $0, %al
   call printf
@@ -142,7 +144,7 @@ for (long ii = 0; ii < nn; ++ii) {
 cmp  8(%rsp), %r15
 jge for_loop_print_done
 
-mov $int_fmt, %rdi
+mov $int_fmt_space, %rdi
 mov (%r12, %r15, 8), %rsi
 mov $0, %al
 call printf

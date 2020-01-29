@@ -169,7 +169,7 @@ main_done:
   call printf
 
   //free(xs);
-  mov (%r12), %rdi
+  mov %r12, %rdi
   call free
   //return 0;
 

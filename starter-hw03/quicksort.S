@@ -205,13 +205,13 @@ quicksort:
   mov %rsi, %r13
   mov %rdx, %r14
   /*
-  if (hi - lo < 1) {
+  if ( 1 > hi - lo ) {
         return;
     }
   */
   mov %r14, %rcx
   sub %r13, %rcx
-  cmp %rcx, $1
+  cmp $1, %rcx
   jl quicksort_done
 
   //long pp = partition(xs, lo, hi);
@@ -220,9 +220,6 @@ quicksort:
   mov %r14, %rdx
   call partition
   mov %rax, %r15
-
-  mov $int_fmt, %rdi
-  call puts
 
   //quicksort(xs, lo, pp);
   mov %r12, %rdi

@@ -25,7 +25,7 @@ enter $8, $0
 #mov %rdi, %r12
 
 //scanf("%ld", ptr)
-lea (%rdi), %rsi
+mov %rdi, %rsi
 mov $int_fmt, %rdi
 mov $0, %al
 call scanf

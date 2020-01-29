@@ -22,11 +22,11 @@ read_int:
 push %r12
 enter $8, $0
 
-mov %rdi, %r12
+#mov %rdi, %r12
 
 //scanf("%ld", ptr)
+lea (%rdi), %rsi
 mov $int_fmt, %rdi
-lea (%r12), %rsi
 mov $0, %al
 call scanf
 

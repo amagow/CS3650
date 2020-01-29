@@ -24,7 +24,7 @@ enter $8, $0
 
 //scanf("%ld", ptr)
 mov $int_fmt, %rdi
-lea %r12, %rsi
+lea (%r12), %rsi
 mov $0, al
 call scanf
 
@@ -32,7 +32,7 @@ cmp $1, %rax
 jne read_int_error
 
 read_int_done:
-lea %r12, %rax
+lea (%r12), %rax
 
 leave
 pop %r12

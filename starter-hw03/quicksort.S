@@ -212,7 +212,7 @@ quicksort:
   mov %r14, %rcx
   sub %r13, %rcx
   cmp $1, %rcx
-  jge quicksort_done
+  jle quicksort_done
 
   //long pp = partition(xs, lo, hi);
   mov %r12, %rdi

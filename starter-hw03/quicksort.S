@@ -145,7 +145,7 @@ mov 8(%rsp), %rsi
 mov $0, %al
 call printf
 
-cmp %r15, 8(%rsp)
+cmp  8(%rsp), %r15
 jge for_loop_print_done
 
 mov $int_fmt, %rdi

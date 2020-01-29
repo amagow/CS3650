@@ -35,8 +35,6 @@ cmp $1, %rax
 jne read_int_error
 
 read_int_done:
-lea (%r12), %rax
-
 leave
 pop %r12
 ret
@@ -80,7 +78,7 @@ main(int _argc, char* _argv[])
 Variable Mappings
 argc: %rdi
 nn: 8(%rsp)
-
+*xs: 16(%rsp)
 
 */
 main:
@@ -93,11 +91,27 @@ main:
   lea 8(%rsp), %rdi
   call read_int
 
-  #Test
+  #Test 8(%rsp) has the value of nn
+  #mov $int_fmt, %rdi
+  #mov 8(%rsp), %rsi
+  #mov $0, %al
+  #call printf
+
+  #long* xs = malloc(nn * sizeof(long))
+  mov $8, %rax
+  mov 8(%rsp), %rdx
+  imul %rdx
+  
+  mov %rax, %rdi
+  call malloc
+  mov %rax, 16(%rsp)
+
+  #printf("%ld\n", nn);
   mov $int_fmt, %rdi
   mov 8(%rsp), %rsi
   mov $0, %al
   call printf
+
 
 main_done:
   leave

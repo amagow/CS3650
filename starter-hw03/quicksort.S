@@ -86,14 +86,12 @@ main:
   enter $16, $0
 
   #read_int(&nn);
-  mov $8, %rdi
-  add %rsp, %rdi
-  mov %rdi, %r12
+  add 8(%rsp), %rdi
   call read_int
 
   #Test
   mov $int_fmt, %rdi
-  mov %r12, %rsi
+  mov 8(%rsp), %rsi
   mov $0, %al
   call printf
 

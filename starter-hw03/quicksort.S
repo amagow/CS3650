@@ -24,6 +24,8 @@ enter $8, $0
 
 mov %rdi, %r12
 
+mov $int_fmt, %rdi
+call puts
 //scanf("%ld", ptr)
 mov $int_fmt, %rdi
 lea (%r12), %rsi

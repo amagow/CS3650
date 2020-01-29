@@ -88,7 +88,7 @@ main:
   enter $16, $0
 
   #read_int(&nn);
-  mov 8(%rsp), %rdi
+  mov 16(%rsp), %rdi
   call read_int
 
   #Test

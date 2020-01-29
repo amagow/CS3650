@@ -24,8 +24,6 @@ enter $8, $0
 
 mov %rdi, %r12
 
-mov $int_fmt, %rdi
-call puts
 //scanf("%ld", ptr)
 mov $int_fmt, %rdi
 lea (%r12), %rsi
@@ -90,7 +88,7 @@ main:
   enter $16, $0
 
   #read_int(&nn);
-  add 8(%rsp), %rdi
+  mov 8(%rsp), %rdi
   call read_int
 
   #Test

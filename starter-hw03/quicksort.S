@@ -28,7 +28,7 @@ enter $8, $0
 lea (%rdi), %rsi
 mov $int_fmt, %rdi
 mov $0, %al
-call scanf
+call prtinf
 
 cmp $1, %rax
 jne read_int_error
@@ -85,6 +85,7 @@ nn: 8(%rsp)
 main:
   push %r12
   push %r13
+  //Initialise space on the stack;  long nn;
   enter $16, $0
 
   #read_int(&nn);

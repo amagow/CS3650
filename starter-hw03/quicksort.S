@@ -153,6 +153,11 @@ inc %r15
 jmp for_loop_print
 
 for_loop_print_done:
+
+mov $new_line, %rdi
+mov $0, %al
+call printf
+
 jmp main_done
 
 main_done:

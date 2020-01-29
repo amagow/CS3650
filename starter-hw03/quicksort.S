@@ -28,7 +28,7 @@ enter $8, $0
 lea (%rdi), %rsi
 mov $int_fmt, %rdi
 mov $0, %al
-call prtinf
+call printf
 
 cmp $1, %rax
 jne read_int_error

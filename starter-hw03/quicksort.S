@@ -2,7 +2,7 @@
 .data
 bad_input: .string "bad input"
 int_fmt: .string "%ld"
-new_line: .string "/n"
+new_line: .string "\n"
 
 .text
 /*

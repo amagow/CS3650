@@ -87,7 +87,7 @@ main:
   push %r12
   push %r13
   //Initialise space on the stack;  long nn;
-  enter $8, $0
+  enter $16, $0
 
   #read_int(&nn);
   lea 8(%rsp), %rdi

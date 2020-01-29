@@ -28,9 +28,9 @@ enter $8, $0
 lea (%rdi), %rsi
 mov $int_fmt, %rdi
 mov $0, %al
-call printf
+call scanf
 
-mov $1, %rax
+#mov $1, %rax Testing segmentation fault boundaries
 cmp $1, %rax
 jne read_int_error
 
@@ -87,10 +87,10 @@ main:
   push %r12
   push %r13
   //Initialise space on the stack;  long nn;
-  enter $16, $0
+  enter $32, $0
 
   #read_int(&nn);
-  mov 16(%rsp), %rdi
+  lea 8(%rsp), %rdi
   call read_int
 
   #Test

@@ -94,8 +94,8 @@ main:
   call read_int
 
   #long* xs = malloc(nn * sizeof(long))
-  mov $8, %rax
-  mov 8(%rsp), %rdx
+  mov 8(%rsp), %rax
+  mov $8, %rdx
   imul %rdx
   
   mov %rax, %rdi
@@ -111,13 +111,8 @@ for (long ii = 0; ii < nn; ++ii) {
         read_int(&(xs[ii]));
     }
 */
-
   cmp 8(%rsp), %r15
   jge for_loop_input_done
-
-  mov $int_fmt, %rdi
-  mov (%r12, %r15, 8), %rsi
-  call printf
 
   lea (%r12, %r15, 8), %rdi
   call read_int
@@ -134,8 +129,8 @@ for_loop_input_done:
   mov 8(%rsp), %rsi
   mov $0, %al
   call printf
-  mov $0, %r15
 
+  mov $0, %r15
   jmp for_loop_print
 
 for_loop_print:
@@ -144,6 +139,12 @@ for (long ii = 0; ii < nn; ++ii) {
         printf("%ld ", xs[ii]);
     }
 */
+
+mov $int_fmt, %rdi
+mov 8(%rsp), %rsi
+mov $0, %al
+call printf
+
 cmp %r15, 8(%rsp)
 jge for_loop_print_done
 

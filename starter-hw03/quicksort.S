@@ -211,7 +211,7 @@ quicksort:
   */
   mov %r14, %rcx
   sub %r13, %rcx
-  cmp $1, %rcx
+  cmp %rcx, $1
   jl quicksort_done
 
   //long pp = partition(xs, lo, hi);

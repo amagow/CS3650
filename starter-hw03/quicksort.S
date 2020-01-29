@@ -221,7 +221,7 @@ quicksort:
   call partition
   mov %rax, %r15
 
-  mov %int_fmt, %rdi
+  mov $int_fmt, %rdi
   call puts
 
   //quicksort(xs, lo, pp);

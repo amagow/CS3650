@@ -101,7 +101,7 @@ grow_map(hashmap* hh)
 
     for (size_t ii = 0; ii < nn; ++ii) {
         for (hashmap_pair* curr = data[ii]; curr; curr = curr->next) {
-            map_put(mm, curr->key, curr->val);
+            hashmap_put(mm, curr->key, curr->val);
         }
         free(data[ii]);
     }
@@ -130,7 +130,7 @@ hashmap_put(hashmap* hh, char* kk, int vv)
         }
 
         // ii = (ii + 1) & (hh->capacity - 1);
-        ii = (ii + 1) % h->capacity;
+        ii = (ii + 1) % hh->capacity;
 
     }
     //Item has been deleted

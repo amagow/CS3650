@@ -23,10 +23,10 @@ hash(char* key)
     return hh;
 }
 
-pair*
+hashmap_pair*
 make_pair(const char* key, int val)
 {
-    pair* pp = calloc(1, sizeof(pair));
+    hashmap_pair* pp = calloc(1, sizeof(hashmap_pair));
     pp->key = strdup(key);
     pp->used = true;
     pp->tomb = false;
@@ -34,7 +34,7 @@ make_pair(const char* key, int val)
 }
 
 void
-free_pair(pair* pp)
+free_pair(hashmap_pair* pp)
 {
     free(pp->key);
     free(pp);
@@ -46,7 +46,7 @@ make_hashmap_presize(int nn)
     hashmap* hh = calloc(1, sizeof(hashmap));
     hh->size = 0;
     hh->capacity = nn;
-    hh->data = calloc(hh->capacity, sizeof(pair*));
+    hh->data = calloc(hh->capacity, sizeof(hashmap_pair*));
     // Double check "man calloc" to see what that function does.
     return hh;
 }
@@ -93,14 +93,14 @@ void
 grow_map(hashmap* hh)
 {
     size_t nn = mm->capacity;
-    pair** data = mm->data;
+    hashmap_pair** data = mm->data;
 
     mm->capacity = 2 * nn;
-    mm->data = calloc(mm->capacity, sizeof(pair*));
+    mm->data = calloc(mm->capacity, sizeof(hashmap_pair*));
     mm->size = 0;
 
     for (size_t ii = 0; ii < nn; ++ii) {
-        for (pair* curr = data[ii]; curr; curr = curr->next) {
+        for (hashmap_pair* curr = data[ii]; curr; curr = curr->next) {
             map_put(mm, curr->key, curr->val);
         }
         free(data[ii]);

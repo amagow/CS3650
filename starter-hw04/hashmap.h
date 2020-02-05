@@ -13,7 +13,7 @@ typedef struct hashmap_pair {
 typedef struct hashmap {
     size_t size;
     size_t capacity;
-    pair** data; 
+    hashmap_pair** data; 
 } hashmap;
 
 hashmap* make_hashmap();

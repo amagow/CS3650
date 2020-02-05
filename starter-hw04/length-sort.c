@@ -10,7 +10,7 @@ void sort(svec *xs)
     int pos = 0;
     while (pos < xs->size)
     {
-        if (pos = 0 || strlen(xs->data[pos]) < strlen(xs->data[pos - 1]))
+        if (pos == 0 || strlen(xs->data[pos]) < strlen(xs->data[pos - 1]))
             ++pos;
         else{
             svec_swap(xs, pos - 1, pos);

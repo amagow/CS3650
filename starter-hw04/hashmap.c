@@ -17,8 +17,8 @@ hash(char* key)
 {
     //Test hash function
     size_t hh = 0;
-    for (size_t ii = 0; text[ii]; ++ii) {
-        hh = hh * 67 + text[ii];
+    for (size_t ii = 0; key[ii]; ++ii) {
+        hh = hh * 67 + key[ii];
     }
     return hh;
 }

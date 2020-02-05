@@ -170,7 +170,7 @@ void
 hashmap_dump(hashmap* hh)
 {
     printf("== hashmap dump ==\n");
-    for (int ii = 0; ii < trips->size; ++ii) {
+    for (int ii = 0; ii < hh->size; ++ii) {
         //Get hashmap at index ii
         hashmap_pair pair = hashmap_get_pair(trips, ii);
         if (!pair.used || pair.tomb) {

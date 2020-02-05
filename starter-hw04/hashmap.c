@@ -60,8 +60,8 @@ make_hashmap()
 void
 free_hashmap(hashmap* hh)
 {
-    for (int ii = 0; ii < trips->size; ++ii) {
-        if(mm->data[ii]){
+    for (int ii = 0; ii < hh->size; ++ii) {
+        if(hh->data[ii]){
             free_pair(mm->data[ii]);
         }
     }
@@ -81,7 +81,7 @@ hashmap_get(hashmap* hh, char* kk)
     // TODO: Return the value associated with the
     // key kk.
     // Note: return -1 for key not found.
-    for(int ii = 0; ii < hh->size; ++i){
+    for(int ii = 0; ii < hh->size; ++ii){
         if(!strcmp((hh->data[ii])->key, kk)){
             return (hh->data[ii])->val;
         } //strcmp 0 if both strings are equal
@@ -92,16 +92,16 @@ hashmap_get(hashmap* hh, char* kk)
 void
 grow_map(hashmap* hh)
 {
-    size_t nn = mm->capacity;
-    hashmap_pair** data = mm->data;
+    size_t nn = hh->capacity;
+    hashmap_pair** data = hh->data;
 
-    mm->capacity = 2 * nn;
-    mm->data = calloc(mm->capacity, sizeof(hashmap_pair*));
-    mm->size = 0;
+    hh->capacity = 2 * nn;
+    hh->data = calloc(hh->capacity, sizeof(hashmap_pair*));
+    hh->size = 0;
 
     for (size_t ii = 0; ii < nn; ++ii) {
         hashmap_pair* curr = data[ii];
-        hashmap_put(mm, curr->key, curr->val);
+        hashmap_put(hh, curr->key, curr->val);
         free(data[ii]);
     }
     free(data);

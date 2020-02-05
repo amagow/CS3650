@@ -135,13 +135,13 @@ hashmap_put(hashmap* hh, char* kk, int vv)
     }
     //Item has been deleted
     if(hh->data[ii]->tomb){
-        m->data[ii]->key = strdup(kk);
-        m->data[ii]->val = vv;
+        hh->data[ii]->key = strdup(kk);
+        hh->data[ii]->val = vv;
     }
     else{
-        mm->data[ii] = make_pair(key, val);
+        hh->data[ii] = make_pair(kk, vv);
     }
-    mm->size += 1;
+    hh->size += 1;
 }
 
 void
@@ -149,7 +149,7 @@ hashmap_del(hashmap* hh, char* kk)
 {
     // TODO: Remove any value associated with
     // this key in the map.
-    for(int ii = 0; ii < hh->size; ++i){
+    for(int ii = 0; ii < hh->size; ++ii){
         if(!strcmp((hh->data[ii])->key, kk)){
             (hh->data[ii])->tomb = true;
             free(hh->data[ii]->key);

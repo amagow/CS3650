@@ -62,7 +62,7 @@ free_hashmap(hashmap* hh)
 {
     for (int ii = 0; ii < hh->size; ++ii) {
         if(hh->data[ii]){
-            free_pair(mm->data[ii]);
+            free_pair(hh->data[ii]);
         }
     }
     free(hh->data);
@@ -124,7 +124,7 @@ hashmap_put(hashmap* hh, char* kk, int vv)
     while(hh->data[ii]->used || !hh->data[ii]->tomb){
         
         if(!strcmp(hh->data[ii]->key, kk)){
-            hh->data[ii]->key = vv;
+            hh->data[ii]->val = vv;
             return;
         }
 

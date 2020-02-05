@@ -28,6 +28,7 @@ make_pair(const char* key, int val)
 {
     hashmap_pair* pp = calloc(1, sizeof(hashmap_pair));
     strlcpy(pp->key, key, 4 * sizeof(char));
+    pp->val = val;
     pp->used = true;
     pp->tomb = false;
     return pp;

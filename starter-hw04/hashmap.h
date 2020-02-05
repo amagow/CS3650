@@ -11,8 +11,9 @@ typedef struct hashmap_pair {
 } hashmap_pair;
 
 typedef struct hashmap {
-    long useless_field;
-    // TODO: Define working hashmap struct.
+    long size;
+    long capacity;
+    long** data; 
 } hashmap;
 
 hashmap* make_hashmap();

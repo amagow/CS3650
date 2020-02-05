@@ -27,7 +27,7 @@ hashmap_pair*
 make_pair(const char* key, int val)
 {
     hashmap_pair* pp = calloc(1, sizeof(hashmap_pair));
-    pp->key = strdup(key);
+    pp->key = key
     pp->used = true;
     pp->tomb = false;
     return pp;
@@ -134,7 +134,7 @@ hashmap_put(hashmap* hh, char* kk, int vv)
     }
     //Item has been deleted
     if(hh->data[ii]->tomb){
-        hh->data[ii]->key = strdup(kk);
+        hh->data[ii]->key = kk;
         hh->data[ii]->val = vv;
     }
     else{
@@ -151,7 +151,6 @@ hashmap_del(hashmap* hh, char* kk)
     for(int ii = 0; ii < hh->size; ++ii){
         if(!strcmp((hh->data[ii])->key, kk)){
             (hh->data[ii])->tomb = true;
-            free(hh->data[ii]->key);
         } //strcmp 0 if both strings are equal
     }
     return;

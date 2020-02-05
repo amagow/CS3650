@@ -24,7 +24,7 @@ void chomp(char *text)
     // int n = strlen(text);
     // if(text[n-1] == "\n")
     //     text[n-1] = 0;
-    strtok(Name, "\n");
+    strtok(text, "\n");
 }
 
 int main(int argc, char *argv[])

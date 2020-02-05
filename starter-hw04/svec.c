@@ -66,5 +66,5 @@ svec_swap(svec* sv, int ii, int jj)
 {
     char *temp = sv->data[ii];
     sv->data[ii] = sv->data[jj];
-    sv->data[jj] = temp;
+    sv->data[jj] = strdup(temp); 
 }

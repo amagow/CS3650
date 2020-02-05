@@ -9,7 +9,7 @@
 void
 chomp(char* text)
 {
-    // TODO: remove trailing newline from string
+    strtok(text, "\n");
 }
 
 int

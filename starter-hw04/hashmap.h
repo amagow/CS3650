@@ -11,9 +11,9 @@ typedef struct hashmap_pair {
 } hashmap_pair;
 
 typedef struct hashmap {
-    long size;
-    long capacity;
-    long** data; 
+    size_t size;
+    size_t capacity;
+    pair** data; 
 } hashmap;
 
 hashmap* make_hashmap();

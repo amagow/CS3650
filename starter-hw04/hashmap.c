@@ -15,15 +15,38 @@
 int
 hash(char* key)
 {
-    // TODO: Produce an appropriate hash value.
-    return 0;
+    //Test hash function
+    size_t hh = 0;
+    for (size_t ii = 0; text[ii]; ++ii) {
+        hh = hh * 67 + text[ii];
+    }
+    return hh;
+}
+
+pair*
+make_pair(const char* key, int val)
+{
+    pair* pp = calloc(1, sizeof(pair));
+    pp->key = strdup(key);
+    pp->used = true;
+    pp->tomb = false;
+    return pp;
+}
+
+void
+free_pair(pair* pp)
+{
+    free(pp->key);
+    free(pp);
 }
 
 hashmap*
 make_hashmap_presize(int nn)
 {
     hashmap* hh = calloc(1, sizeof(hashmap));
-    // TODO: Allocate and initialize a hashmap with capacity 'nn'.
+    hh->size = 0;
+    hh->capacity = nn;
+    hh->data = calloc(hh->capacity, sizeof(pair*));
     // Double check "man calloc" to see what that function does.
     return hh;
 }
@@ -37,7 +60,13 @@ make_hashmap()
 void
 free_hashmap(hashmap* hh)
 {
-    // TODO: Free all allocated data.
+    for (int ii = 0; ii < trips->size; ++ii) {
+        if(mm->data[ii]){
+            free_pair(mm->data[ii]);
+        }
+    }
+    free(hh->data);
+    free(hh);
 }
 
 int
@@ -52,6 +81,32 @@ hashmap_get(hashmap* hh, char* kk)
     // TODO: Return the value associated with the
     // key kk.
     // Note: return -1 for key not found.
+    for(int ii = 0; ii < hh->size; ++i){
+        if(!strcmp((hh->data[ii])->key, kk)){
+            return (hh->data[ii])->val;
+        } //strcmp 0 if both strings are equal
+    }
+    return -1;
+}
+
+void
+grow_map(hashmap* hh)
+{
+    size_t nn = mm->capacity;
+    pair** data = mm->data;
+
+    mm->capacity = 2 * nn;
+    mm->data = calloc(mm->capacity, sizeof(pair*));
+    mm->size = 0;
+
+    for (size_t ii = 0; ii < nn; ++ii) {
+        for (pair* curr = data[ii]; curr; curr = curr->next) {
+            map_put(mm, curr->key, curr->val);
+        }
+        free(data[ii]);
+    }
+    free(data);
+
 }
 
 void
@@ -60,6 +115,33 @@ hashmap_put(hashmap* hh, char* kk, int vv)
     // TODO: Insert the value 'vv' into the hashmap
     // for the key 'kk', replacing any existing value
     // for that key.
+    if(hh->size >= (hh->capacity/2)){
+        grow_map(hh);
+    }
+
+    int ii = hash(kk) & (hh->capacity - 1); //index
+
+    //Linear probing
+    while(hh->data[ii]->used || !hh->data[ii]->tomb){
+        
+        if(!strcmp(hh->data[ii]->key, kk)){
+            hh->data[ii]->key = vv;
+            return;
+        }
+
+        // ii = (ii + 1) & (hh->capacity - 1);
+        ii = (ii + 1) % h->capacity;
+
+    }
+    //Item has been deleted
+    if(hh->data[ii]->tomb){
+        m->data[ii]->key = strdup(kk);
+        m->data[ii]->val = vv;
+    }
+    else{
+        mm->data[ii] = make_pair(key, val);
+    }
+    mm->size += 1;
 }
 
 void
@@ -67,18 +149,35 @@ hashmap_del(hashmap* hh, char* kk)
 {
     // TODO: Remove any value associated with
     // this key in the map.
+    for(int ii = 0; ii < hh->size; ++i){
+        if(!strcmp((hh->data[ii])->key, kk)){
+            (hh->data[ii])->tomb = true;
+            free(hh->data[ii]->key);
+        } //strcmp 0 if both strings are equal
+    }
+    return;
+
 }
 
 hashmap_pair
 hashmap_get_pair(hashmap* hh, int ii)
 {
     // TODO: Get the {k,v} pair stored in index 'ii'.
+    return *hh->data[ii];
 }
 
 void
 hashmap_dump(hashmap* hh)
 {
     printf("== hashmap dump ==\n");
+    for (int ii = 0; ii < trips->size; ++ii) {
+        //Get hashmap at index ii
+        hashmap_pair pair = hashmap_get_pair(trips, ii);
+        if (!pair.used || pair.tomb) {
+            continue;
+        }
+        printf("%d\t%s\n", pair.val, pair.key);
+    }
     // TODO: Print out all the keys and values currently
     // in the map, in storage order. Useful for debugging.
 }

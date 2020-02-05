@@ -78,6 +78,7 @@ main(int argc, char* argv[])
 
     // TODO: 0 is probably the wrong loop bound here.
     for (int ii = 0; ii < trips->size; ++ii) {
+        //Get hashmap at index ii
         hashmap_pair pair = hashmap_get_pair(trips, ii);
         if (!pair.used || pair.tomb) {
             continue;
@@ -85,6 +86,7 @@ main(int argc, char* argv[])
 
         int count = pair.val;
 
+        // 
         for (int jj = 0; jj < NN; ++jj) {
             if (count > tops[jj].val) {
                 hashmap_pair tmp = tops[jj];

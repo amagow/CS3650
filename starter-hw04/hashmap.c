@@ -27,7 +27,7 @@ hashmap_pair*
 make_pair(const char* key, int val)
 {
     hashmap_pair* pp = calloc(1, sizeof(hashmap_pair));
-    pp->key = key
+    stlcpy(pp->key, kk, 4 * sizeof(char));
     pp->used = true;
     pp->tomb = false;
     return pp;
@@ -134,7 +134,7 @@ hashmap_put(hashmap* hh, char* kk, int vv)
     }
     //Item has been deleted
     if(hh->data[ii]->tomb){
-        hh->data[ii]->key = kk;
+        stlcpy(hh->data[ii]->key, kk, 4 * sizeof(char));
         hh->data[ii]->val = vv;
     }
     else{

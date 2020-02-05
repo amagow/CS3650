@@ -100,9 +100,8 @@ grow_map(hashmap* hh)
     mm->size = 0;
 
     for (size_t ii = 0; ii < nn; ++ii) {
-        for (hashmap_pair* curr = data[ii]; curr; curr = curr->next) {
-            hashmap_put(mm, curr->key, curr->val);
-        }
+        hashmap_pair* curr = data[ii];
+        hashmap_put(mm, curr->key, curr->val);
         free(data[ii]);
     }
     free(data);

@@ -21,10 +21,10 @@ void sort(svec *xs)
 
 void chomp(char *text)
 {
-    // TODO: Modify input string to remove trailing newline ('\n')
-    int n = strlen(text);
-    if(text[n-1] == "\n")
-        text[n-1] = 0;
+    // int n = strlen(text);
+    // if(text[n-1] == "\n")
+    //     text[n-1] = 0;
+    strtok(Name, "\n");
 }
 
 int main(int argc, char *argv[])

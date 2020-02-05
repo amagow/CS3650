@@ -36,7 +36,6 @@ make_pair(const char* key, int val)
 void
 free_pair(hashmap_pair* pp)
 {
-    free(pp->key);
     free(pp);
 }
 

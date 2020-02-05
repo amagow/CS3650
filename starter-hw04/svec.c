@@ -8,20 +8,29 @@
 
 #include "svec.h"
 
+//If you are a TA reading this assignment please answer these questions in the feedback
+
 svec*
 make_svec()
 {
     svec* sv = malloc(sizeof(svec));
-    sv->data = malloc(2 * sizeof(char*));
+    sv->data = malloc(2 * sizeof(char*)); //Why use malloc and not use calloc
+    memset(sv->data, 0, 2 * sizeof(char*));
     sv->size = 0;
-    // TODO: correctly allocate and initialize data structure
+    sv->capacity = 2;
     return sv;
 }
 
 void
 free_svec(svec* sv)
 {
-    // TODO: free all allocated data
+    for(int ii = 0; ii < sv->size; ++ii){
+        if(sv->data[ii]){
+            free(sv->data[ii]);
+        }
+    }
+    free(sv->data);
+    free(sv);
 }
 
 char*
@@ -35,9 +44,7 @@ void
 svec_put(svec* sv, int ii, char* item)
 {
     assert(ii >= 0 && ii < sv->size);
-    sv->data[0] = item;
-    // TODO: insert item into slot ii
-    // Consider ownership of string in collection.
+    sv->data[ii] = strdup(item);
 }
 
 void
@@ -45,8 +52,10 @@ svec_push_back(svec* sv, char* item)
 {
     int ii = sv->size;
 
-    // TODO: expand vector if backing erray
-    // is not big enough
+    if(ii >= sv->capcaity){
+        sv->capacity *= 2;
+        sv->data = realloc(sv->data, sv->cap * sizeof(char*));
+    }
 
     sv->size = ii + 1;
     svec_put(sv, ii, item);
@@ -55,5 +64,7 @@ svec_push_back(svec* sv, char* item)
 void
 svec_swap(svec* sv, int ii, int jj)
 {
-    // TODO: Swap the items in slots ii and jj
+    char *temp = sv->data[ii];
+    sv->data[ii] = sv->data[jj];
+    sv->data[jj] = temp
 }

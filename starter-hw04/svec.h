@@ -7,7 +7,7 @@
 typedef struct svec {
     int size;
     char** data;
-    // TODO: complete struct
+    int capacity;
 } svec;
 
 svec* make_svec();

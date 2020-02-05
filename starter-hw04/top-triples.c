@@ -9,7 +9,7 @@
 void
 chomp(char* text)
 {
-    strtok(text, "\n");
+    text[strcspn(text, "\n")] = 0;
 }
 
 int

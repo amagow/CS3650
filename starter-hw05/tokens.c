@@ -59,7 +59,7 @@ tokenize(char *text)
          op[0] = text[ii];
          op[1] = text[ii + 1];
          svec_push_back(sv, op);
-         ++ii;
+         ii += 2;
          continue;
       }
 

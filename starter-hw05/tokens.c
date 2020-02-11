@@ -92,7 +92,7 @@ int main(int argc, char const *argv[])
       char *line = read_line(text);
       svec *toks = tokenize(line);
       printf("value of string: %s", line);
-      toks = reverse_free(toks);
+      // toks = reverse_free(toks);
       print_vec(toks);
    }
 

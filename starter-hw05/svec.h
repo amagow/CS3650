@@ -22,4 +22,5 @@ void svec_swap(svec *sv, int ii, int jj);
 svec *reverse(svec *sv);
 svec *reverse_free(svec *sv);
 void print_vec(svec *sv);
+void rev_print_vec(svec *sv);
 #endif

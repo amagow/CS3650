@@ -79,17 +79,18 @@ reverse(svec *sv)
     return sv2;
 }
 
-svec *
-reverse_free(svec *sv)
-{
-    svec *sv2 = reverse(sv);
-    free(sv);
-    return sv2;
-}
-
 void print_vec(svec *sv)
 {
-    for(long ii = 0; ii < sv->size; ++ii){
+    for (long ii = 0; ii < sv->size; ++ii)
+    {
+        puts(sv->data[ii]);
+    }
+}
+
+void rev_print_vec(svec *sv)
+{
+    for (long ii = sv->size; ii >= 0; --ii)
+    {
         puts(sv->data[ii]);
     }
 }

@@ -6,10 +6,10 @@
 
 void chomp(char *text)
 {
-    // int n = strlen(text);
-    // if(text[n-1] == "\n")
-    //     text[n-1] = 0;
-    strtok(text, "\n");
+   // int n = strlen(text);
+   // if(text[n-1] == "\n")
+   //     text[n-1] = 0;
+   strtok(text, "\n");
 }
 
 char *read_line(char *text)
@@ -23,15 +23,15 @@ char *read_line(char *text)
 }
 
 char *
-read_argument(const char* text, long ii)
+read_argument(const char *text, long ii)
 {
    long nn = 0;
    while (!isblank(text[ii + nn]))
    {
       ++nn;
    }
-   
-   char* arg = malloc(nn + 1);
+
+   char *arg = malloc(nn + 1);
    memcpy(arg, text + ii, nn);
    arg[nn] = 0;
    return arg;
@@ -45,11 +45,8 @@ tokenize(char *text)
    long len = strlen(text);
    long ii = 0;
 
-   printf("In tokenize");
-
    while (ii < len)
    {
-      printf("in Loop %d", ii);
       if (isspace(text[ii]))
       {
          ++ii;
@@ -95,8 +92,7 @@ int main(int argc, char const *argv[])
       char *line = read_line(text);
       svec *toks = tokenize(line);
       printf("value of string: %s", line);
-      toks = reverse_free(toks);
-      print_vec(toks);
+      rev_print_vec(toks);
    }
 
    return 0;

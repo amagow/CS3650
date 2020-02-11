@@ -1,8 +1,15 @@
+CFLAGS := -g
 
-tokens:
-	echo "#!/bin/sh" > tokens
-	echo "echo fix the makefile" >> tokens
-	chmod a+x tokens
+all: tokens
+
+tokens: tokens.o svec.o
+	gcc $(CFLAGS) -o $@ $^
+
+tokens.o: tokens.c svec.h
+	gcc $(CFLAGS) -c -o $@ $<
+
+svec.o: svec.c svec.h
+	gcc $(CFLAGS) -c -o $@ $<
 
 clean:
 	rm -rf tmp tokens *.o

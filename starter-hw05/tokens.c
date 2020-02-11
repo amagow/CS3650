@@ -45,8 +45,11 @@ tokenize(char *text)
    long len = strlen(text);
    long ii = 0;
 
+   printf("In tokenize");
+
    while (ii < len)
    {
+      printf("in Loop %d", ii);
       if (isspace(text[ii]))
       {
          ++ii;
@@ -92,7 +95,7 @@ int main(int argc, char const *argv[])
       char *line = read_line(text);
       svec *toks = tokenize(line);
       printf("value of string: %s", line);
-      // toks = reverse_free(toks);
+      toks = reverse_free(toks);
       print_vec(toks);
    }
 

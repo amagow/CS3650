@@ -3,7 +3,7 @@ CFLAGS := -g
 all: tokens
 
 tokens: tokens.o svec.o
-	gcc $(CFLAGS) -o $@ $^
+	gcc $(CFLAGS) -o $@ $^ -lbsd
 
 tokens.o: tokens.c svec.h
 	gcc $(CFLAGS) -c -o $@ $<

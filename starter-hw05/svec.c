@@ -83,13 +83,13 @@ void print_vec(svec *sv)
 {
     for (long ii = 0; ii < sv->size; ++ii)
     {
-        puts(sv->data[ii]);
+        printf("(%s)\n", sv->data[ii]);
     }
 }
 
 void rev_print_vec(svec *sv)
 {
-    for (long ii = sv->size; ii >= 0; --ii)
+    for (long ii = sv->size - 1; ii >= 0; --ii)
     {
         puts(sv->data[ii]);
     }

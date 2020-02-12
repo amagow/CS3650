@@ -108,6 +108,7 @@ int main(int argc, char const *argv[])
       svec *toks = tokenize(line);
       //Print reversed list
       rev_print_vec(toks);
+      free_svec(toks);
    }
 
    return 0;

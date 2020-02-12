@@ -6,17 +6,16 @@
 
 void chomp(char *text)
 {
-   // int n = strlen(text);
-   // if(text[n-1] == "\n")
-   //     text[n-1] = 0;
    strtok(text, "\n");
 }
 
 char *read_line(char *text)
 {
+   //Read line from buffer to text
    char *rv = fgets(text, 1000, stdin);
    if (!rv)
    {
+      //If EOF is reached
       exit(0);
    }
    return text;
@@ -64,10 +63,10 @@ tokenize(char *text)
       if ((text[ii] == '|' && text[ii + 1] == '|') || (text[ii] == '&' && text[ii + 1] == '&'))
       {
          // puts("doubles");
-         char op[] = "xx";
-         op[0] = text[ii];
-         op[1] = text[ii + 1];
-         svec_push_back(sv, op);
+         char spec[] = "xx";
+         spec[0] = text[ii];
+         spec[1] = text[ii + 1];
+         svec_push_back(sv, spec);
          ii += 2;
          continue;
       }
@@ -75,9 +74,9 @@ tokenize(char *text)
       if (text[ii] == '<' || text[ii] == '>' || text[ii] == ';' || text[ii] == '|' || text[ii] == '&')
       {
          // puts("singles");
-         char op[] = "x";
-         op[0] = text[ii];
-         svec_push_back(sv, op);
+         char spec[] = "x";
+         spec[0] = text[ii];
+         svec_push_back(sv, spec);
          ++ii;
          continue;
       }
@@ -107,24 +106,9 @@ int main(int argc, char const *argv[])
       fflush(stdout);
       char *line = read_line(text);
       svec *toks = tokenize(line);
+      //Print reversed list
       rev_print_vec(toks);
    }
 
    return 0;
 }
-
-/* TODO:
-
-   while (1) {
-     printf("tokens$ ");
-     fflush(stdout);
-     line = read_line()
-     if (that was EOF) {
-        exit(0);
-     }
-     tokens = tokenize(line);
-     foreach token in reverse(tokens):
-       puts(token)
-   }
-
-*/

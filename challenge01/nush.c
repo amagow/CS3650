@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include "svec.h"
+#include "helper.h"
+#include "tokenize.h"
 
 void
 execute(char* cmd)

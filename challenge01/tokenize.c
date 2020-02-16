@@ -20,7 +20,7 @@ read_argument(const char *text, long ii)
       ++nn;
    }
 
-   char *arg = malloc(nn + 1);
+   char *arg = calloc(nn + 1,sizeof(char));
    memcpy(arg, text + ii, nn);
    arg[nn] = 0;
    return arg;

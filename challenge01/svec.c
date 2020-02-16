@@ -14,7 +14,7 @@ svec *
 make_svec()
 {
     svec *sv = malloc(sizeof(svec));
-    sv->data = malloc(2 * sizeof(char *)); //Why use malloc and not use calloc
+    sv->data = calloc(2, sizeof(char *)); //Why use malloc and not use calloc
     memset(sv->data, 0, 2 * sizeof(char *));
     sv->size = 0;
     sv->capacity = 2;
@@ -55,6 +55,7 @@ void svec_push_back(svec *sv, char *item)
     {
         sv->capacity *= 2;
         sv->data = realloc(sv->data, sv->capacity * sizeof(char *));
+        memset(sv->data + sv->size,'\0',sv->capacity - sv->size);
     }
 
     sv->size = ii + 1;

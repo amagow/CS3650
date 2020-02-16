@@ -49,7 +49,6 @@ void execute(char *cmd)
 
 int main(int argc, char *argv[])
 {
-    int d = 23;
     char cmd[256];
 
     if (argc == 1)
@@ -71,6 +70,7 @@ int main(int argc, char *argv[])
         {
             fflush(stdout);
             char *line = read_line(cmd, 250, fstream);
+            cmd = {0};
             chomp(cmd);
             execute(cmd);
         }

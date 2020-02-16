@@ -23,7 +23,7 @@ void pwait_fork(char *cmd, char *const args[])
     }
 }
 
-void eval(char *cmd, char *const args[], int size)
+void eval(char *const args[], int size)
 {
     char *targ[size + 1];
     for (size_t i = 0; i < size; i++)
@@ -32,7 +32,7 @@ void eval(char *cmd, char *const args[], int size)
     }
     targ[size] = NULL;
 
-    pwait_fork(cmd, targ);
+    pwait_fork(targ[0], targ);
 }
 
 void execute(char *cmd)
@@ -48,7 +48,7 @@ void execute(char *cmd)
         chdir(targ);
         return;
     }
-    eval(args->data[0], args->data, args->size);
+    eval(args->data, args->size);
     free_svec(args);
 }
 

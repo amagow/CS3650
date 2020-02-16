@@ -15,7 +15,7 @@ char *
 read_argument(const char *text, long ii)
 {
    long nn = 0;
-   while (!isblank(text[ii + nn]) && !is_special(text[ii + nn]))
+   while (!isblank(text[ii + nn]|| NULL) && !is_special(text[ii + nn] || NULL))
    {
       ++nn;
    }

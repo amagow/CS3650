@@ -9,7 +9,7 @@
 #include "helper.h"
 #include "tokenize.h"
 
-void eval(char *cmd, char *const args[], int size)
+void pwait_fork(char *cmd, char *const args[])
 {
     int cpid;
     if ((cpid = fork()))
@@ -19,15 +19,20 @@ void eval(char *cmd, char *const args[], int size)
     }
     else
     {
-        char *targ[size + 1];
-        for (size_t i = 0; i < size; i++)
-        {
-            targ[i] = args[i];
-        }
-        targ[size] = NULL;
-
-        execvp(cmd, targ);
+        execvp(cmd, args);
     }
+}
+
+void eval(char *cmd, char *const args[], int size)
+{
+    char *targ[size + 1];
+    for (size_t i = 0; i < size; i++)
+    {
+        targ[i] = args[i];
+    }
+    targ[size] = NULL;
+
+    pwait_fork(cmd, targ);
 }
 
 void execute(char *cmd)

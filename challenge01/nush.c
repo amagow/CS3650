@@ -70,7 +70,6 @@ int main(int argc, char *argv[])
         {
             fflush(stdout);
             char *line = read_line(cmd, 250, fstream);
-            memset(cmd,0,256);
             chomp(cmd);
             execute(cmd);
         }

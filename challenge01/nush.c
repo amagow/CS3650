@@ -49,7 +49,7 @@ void execute(char *cmd)
 
 int main(int argc, char *argv[])
 {
-    char cmd[256];
+    char cmd[256] = {0};
 
     if (argc == 1)
     {

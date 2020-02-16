@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 void chomp(char *text);
-char *read_line(char *text,int buffer_size, FILE * stream);
+void read_line(char *text,int buffer_size, FILE * stream);
 
 #endif

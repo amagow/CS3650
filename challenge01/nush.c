@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
         {
             printf("nush$ ");
             fflush(stdout);
-            char *line = read_line(cmd, 250, stdin);
+            read_line(cmd, 250, stdin);
             execute(cmd);
         }
     }
@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
         while (1)
         {
             fflush(stdout);
-            char *line = read_line(cmd, 250, fstream);
+            read_line(cmd, 250, fstream);
             execute(cmd);
         }
         fclose(fstream);

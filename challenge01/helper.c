@@ -7,7 +7,7 @@ void chomp(char *text)
     strtok(text, "\n");
 }
 
-char *read_line(char *text,int buffer_size, FILE * stream)
+void *read_line(char *text,int buffer_size, FILE * stream)
 {
     //Read line from buffer to text
     char *rv = fgets(text, buffer_size, stream);
@@ -16,5 +16,4 @@ char *read_line(char *text,int buffer_size, FILE * stream)
         //If EOF is reached
         exit(0);
     }
-    return text;
 }

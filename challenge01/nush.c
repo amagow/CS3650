@@ -70,6 +70,7 @@ void execute(char *cmd)
         // execvp(cmd, args);
         // printf("Can't get here, exec only returns on error.");
     }
+    free_svec(args);
 }
 
 int main(int argc, char *argv[])

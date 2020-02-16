@@ -49,7 +49,8 @@ void execute(char *cmd)
 
 int main(int argc, char *argv[])
 {
-    char cmd[256] = {0};
+    int d = 23;
+    char cmd[256];
 
     if (argc == 1)
     {

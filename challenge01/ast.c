@@ -3,10 +3,10 @@
 #include <string.h>
 #include "ast.h"
 #include "svec.h"
+
 ast *make_ast_value(svec *args)
 {
-    printf("%d",sizeof(ast));
-    ast *ast = malloc(sizeof(ast));
+    ast* ast = malloc(sizeof(ast));
     ast->cmnd = "=";
     ast->larg = 0;
     ast->rarg = 0;

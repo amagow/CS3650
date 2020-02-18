@@ -16,7 +16,7 @@ typedef struct shell_ast
 } shell_ast;
 
 shell_ast *make_ast_value(svec *args);
-shell_ast *make_ast_op(char* op, shell_ast *a0, shell_ast *a1);
+shell_ast *make_ast_op(const char* op, shell_ast *a0, shell_ast *a1);
 void free_ast(shell_ast *ast);
 int ast_eval(shell_ast *ast);
 void print_ast(shell_ast *ast);

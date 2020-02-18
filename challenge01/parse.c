@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+#include "ast.h"
 #include "parse.h"
 
 int streq(const char *aa, const char *bb)

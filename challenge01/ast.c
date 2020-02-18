@@ -66,8 +66,8 @@ ast_string(shell_ast *shell_ast)
     }
     else
     {
-        char *aa = shell_string(shell_ast->larg);
-        char *bb = shell_string(shell_ast->rarg);
+        char *aa = ast_string(shell_ast->larg);
+        char *bb = ast_string(shell_ast->rarg);
         char *cc = malloc(128);
         sprintf(cc, "(%s %s %s)", aa, shell_ast->cmnd, bb);
         free(aa);

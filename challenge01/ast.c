@@ -6,7 +6,7 @@
 
 shell_ast *make_ast_value(svec *args)
 {
-    shell_ast* my_ast = malloc(sizeof(my_ast));
+    shell_ast* my_ast = malloc(sizeof(*my_ast));
     my_ast->cmnd = strdup("=");
     my_ast->larg = 0;
     my_ast->rarg = 0;
@@ -16,7 +16,7 @@ shell_ast *make_ast_value(svec *args)
 
 shell_ast *make_ast_op(const char *op, shell_ast *a0, shell_ast *a1)
 {
-    shell_ast *my_ast = malloc(sizeof(my_ast));
+    shell_ast *my_ast = malloc(sizeof(*my_ast));
     my_ast->cmnd = strdup(op);
     my_ast->larg = a1;
     my_ast->rarg = a0;

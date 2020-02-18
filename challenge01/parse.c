@@ -6,16 +6,11 @@
 #include "ast.h"
 #include "parse.h"
 
-int streq(const char *aa, const char *bb)
-{
-    return strcmp(aa, bb) == 0;
-}
-
 int find_first_index(svec *toks, const char *tt)
 {
     for (size_t ii = 0; ii < toks->size; ii++)
     {
-        if (streq(toks->data[ii], tt))
+        if (!strcmp(toks->data[ii], tt))
         {
             return ii;
         }
@@ -61,6 +56,7 @@ parse(svec *toks)
             return ast;
         }
     }
+
     shell_ast *ast = make_ast_value(toks);
     return ast;
 }

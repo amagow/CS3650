@@ -8,8 +8,8 @@ typedef struct ast
     //Command string
     char *cmnd;
 
-    struct calc_st *larg;
-    struct calc_st *rarg;
+    struct ast *larg;
+    struct ast *rarg;
 
     //String array of arguments
     svec *args;

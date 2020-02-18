@@ -9,6 +9,7 @@
 #include "helper.h"
 #include "tokenize.h"
 #include "ast.h"
+#include "parse.h"
 
 void pwait_fork(char *cmd, char *const args[])
 {

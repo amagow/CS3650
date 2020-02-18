@@ -52,8 +52,8 @@ parse(svec *toks)
         if (contains(toks, op)) {
             int jj = find_first_index(toks, op);
             svec* xs = slice(toks, 0, jj);
-            svec* ys = slice(toks, jj + 1, length(toks));
-            shell_ast* ast = make_ast_op(op[0], parse(xs), parse(ys));
+            svec* ys = slice(toks, jj + 1, toks->size);
+            shell_ast* ast = make_ast_op(op, parse(xs), parse(ys));
             free(xs);
             free(ys);
             return ast;

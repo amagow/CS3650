@@ -57,7 +57,9 @@ parse(svec *toks)
             // shell_ast* ast = make_ast_op(op, parse(xs), parse(ys));
             free(xs);
             free(ys);
-            return ast;
+            return 0;
         }
     }
+
+    return 0;
 }

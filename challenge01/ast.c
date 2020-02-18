@@ -6,22 +6,22 @@
 
 shell_ast *make_shell_ast_value(svec *args)
 {
-    shell_ast* shell_ast = malloc(sizeof(shell_ast));
-    shell_ast->cmnd = strdup("=");
-    shell_ast->larg = 0;
-    shell_ast->rarg = 0;
-    shell_ast->args = args;
-    return shell_ast;
+    shell_ast* my_ast = malloc(sizeof(my_ast));
+    my_ast->cmnd = strdup("=");
+    my_ast->larg = 0;
+    my_ast->rarg = 0;
+    my_ast->args = args;
+    return my_ast;
 }
 
 shell_ast *make_shell_ast_op(char *op, shell_ast *a0, shell_ast *a1)
 {
-    shell_ast *shell_ast = malloc(sizeof(shell_ast));
-    shell_ast->cmnd = strdup(op);
-    shell_ast->larg = a1;
-    shell_ast->rarg = a0;
-    shell_ast->args = 0;
-    return shell_ast;
+    shell_ast *my_ast = malloc(sizeof(my_ast));
+    my_ast->cmnd = strdup(op);
+    my_ast->larg = a1;
+    my_ast->rarg = a0;
+    my_ast->args = 0;
+    return my_ast;
 }
 
 void free_shell_ast(shell_ast *shell_ast)

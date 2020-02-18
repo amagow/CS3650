@@ -55,34 +55,34 @@ void execute(char *cmd)
 
 int main(int argc, char *argv[])
 {
-    // char cmd[256];
+    char cmd[256];
 
-    // if (argc == 1)
-    // {
-    //     while (1)
-    //     {
-    //         printf("nush$ ");
-    //         fflush(stdout);
-    //         read_line(cmd, 250, stdin);
-    //         execute(cmd);
-    //     }
-    // }
-    // else if (argc == 2)
-    // {
-    //     FILE *fstream = fopen(argv[1], "r");
-    //     fflush(stdout);
-    //     while (1)
-    //     {
-    //         fflush(stdout);
-    //         read_line(cmd, 250, fstream);
-    //         execute(cmd);
-    //     }
-    //     fclose(fstream);
-    // }
+    if (argc == 1)
+    {
+        while (1)
+        {
+            printf("nush$ ");
+            fflush(stdout);
+            read_line(cmd, 250, stdin);
+            execute(cmd);
+        }
+    }
+    else if (argc == 2)
+    {
+        FILE *fstream = fopen(argv[1], "r");
+        fflush(stdout);
+        while (1)
+        {
+            fflush(stdout);
+            read_line(cmd, 250, fstream);
+            execute(cmd);
+        }
+        fclose(fstream);
+    }
 
-    // return 0;
-
-    ast *tast = make_ast_value(0);   
     return 0;
+
+    // ast *tast = make_ast_value(0);   
+    // return 0;
 
 }

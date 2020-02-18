@@ -33,8 +33,7 @@ int contains(svec *toks, const char *tt)
 svec *
 slice(svec *xs, int i0, int i1)
 {
-    svec *ys = 0;
-    svec *it = make_svec();
+    svec *ys = make_svec();
     for (int ii = i0; ii < i1; ++ii)
     {
         svec_push_back(ys, xs->data[ii]);
@@ -54,7 +53,7 @@ parse(svec *toks)
             int jj = find_first_index(toks, op);
             svec* xs = slice(toks, 0, jj);
             svec* ys = slice(toks, jj + 1, toks->size);
-            // shell_ast* ast = make_ast_op(op, parse(xs), parse(ys));
+            shell_ast* ast = make_ast_op(op, parse(xs), parse(ys));
             free(xs);
             free(ys);
             return 0;

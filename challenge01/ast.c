@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
 #include "ast.h"
 
 ast *make_ast_value(svec *args)
@@ -48,14 +48,16 @@ ast_string(ast *ast)
     {
         char *tmp = malloc(256 * sizeof(char)), *pos = tmp;
         size_t tmp_len = 256;
+        size_t tmp_size = 0;
         for (size_t i = 0; i < ast->args->size; i++)
         {
-            if (pos >= tmp_len)
+            if (tmp_size >= tmp_len)
             {
-                realloc(tmp, 256 * sizeof(char));
+                tmp = realloc(tmp, 256 * sizeof(char));
                 tmp_len += 256;
             }
-            pos += sprintf(pos, "%s", ast->args[i]);
+            tmp_size += sprintf(pos, "%s", ast->args[i]);
+            pos += tmp_size;
         }
         return tmp;
     }

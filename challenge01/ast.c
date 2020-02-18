@@ -2,9 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include "ast.h"
-
+#include "svec.h"
 ast *make_ast_value(svec *args)
 {
+    printf("%d",sizeof(ast));
     ast *ast = malloc(sizeof(ast));
     ast->cmnd = "=";
     ast->larg = 0;
@@ -56,7 +57,7 @@ ast_string(ast *ast)
                 tmp = realloc(tmp, 256 * sizeof(char));
                 tmp_len += 256;
             }
-            tmp_size += sprintf(pos, "%s", ast->args[i]);
+            tmp_size += sprintf(pos, "%s", ast->args->data[i]);
             pos += tmp_size;
         }
         return tmp;

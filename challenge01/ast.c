@@ -14,7 +14,7 @@ shell_ast *make_ast_value(svec *args)
     return my_ast;
 }
 
-shell_ast *make_ast_op(char *op, shell_ast *a0, shell_ast *a1)
+shell_ast *make_ast_op(const char *op, shell_ast *a0, shell_ast *a1)
 {
     shell_ast *my_ast = malloc(sizeof(my_ast));
     my_ast->cmnd = strdup(op);
@@ -28,11 +28,11 @@ void free_ast(shell_ast *shell_ast)
 {
     if (shell_ast->larg)
     {
-        free_shell_ast(shell_ast->larg);
+        free_ast(shell_ast->larg);
     }
     if (shell_ast->rarg)
     {
-        free_shell_ast(shell_ast->rarg);
+        free_ast(shell_ast->rarg);
     }
     free(shell_ast->cmnd);
     free_svec(shell_ast->args);
@@ -66,8 +66,8 @@ ast_string(shell_ast *shell_ast)
     }
     else
     {
-        char *aa = shell_ast_string(shell_ast->larg);
-        char *bb = shell_ast_string(shell_ast->rarg);
+        char *aa = shell_string(shell_ast->larg);
+        char *bb = shell_string(shell_ast->rarg);
         char *cc = malloc(128);
         sprintf(cc, "(%s %s %s)", aa, shell_ast->cmnd, bb);
         free(aa);

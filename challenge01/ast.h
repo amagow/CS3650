@@ -3,22 +3,22 @@
 
 #include "svec.h"
 
-typedef struct ast
+typedef struct shell_ast
 {
     //Command string
     char *cmnd;
 
-    struct ast *larg;
-    struct ast *rarg;
+    struct shell_ast *larg;
+    struct shell_ast *rarg;
 
     //String array of arguments
     svec *args;
-} ast;
+} shell_ast;
 
-ast *make_ast_value(svec *args);
-ast *make_ast_op(char* op, ast *a0, ast *a1);
-void free_ast(ast *ast);
-int ast_eval(ast *ast);
-void print_ast(ast *ast);
+shell_ast *make_ast_value(svec *args);
+shell_ast *make_ast_op(char* op, shell_ast *a0, shell_ast *a1);
+void free_ast(shell_ast *ast);
+int ast_eval(shell_ast *ast);
+void print_ast(shell_ast *ast);
 
 #endif

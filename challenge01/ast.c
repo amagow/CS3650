@@ -6,14 +6,14 @@
 ast *make_ast_value(svec *args)
 {
     ast *ast = malloc(sizeof(ast));
-    ast->cmnd = '=';
+    ast->cmnd = "=";
     ast->larg = 0;
     ast->rarg = 0;
     ast->args = args;
     return ast;
 }
 
-ast *make_ast_op(char op, ast *a0, ast *a1)
+ast *make_ast_op(char *op, ast *a0, ast *a1)
 {
     ast *ast = malloc(sizeof(ast));
     ast->cmnd = op;
@@ -44,15 +44,19 @@ int ast_eval(ast *ast)
 char *
 ast_string(ast *ast)
 {
-    if (ast->cmnd == '=')
+    if (!strcmp(ast->cmnd, "="))
     {
-        char *tmp = malloc(256); // max digits = 10, + sign, + nul
+        char *tmp = malloc(256 * sizeof(char)), *pos = tmp;
+        size_t tmp_len = 256;
         for (size_t i = 0; i < ast->args->size; i++)
         {
-            /* code */
+            if (pos >= tmp_len)
+            {
+                realloc(tmp, 256 * sizeof(char));
+                tmp_len += 256;
+            }
+            pos += sprintf(pos, "%s", ast->args[i]);
         }
-
-        sprintf(tmp, "%s", ast->args);
         return tmp;
     }
     else

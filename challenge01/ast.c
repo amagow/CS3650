@@ -4,7 +4,7 @@
 #include "ast.h"
 #include "svec.h"
 
-shell_ast *make_shell_ast_value(svec *args)
+shell_ast *make_ast_value(svec *args)
 {
     shell_ast* my_ast = malloc(sizeof(my_ast));
     my_ast->cmnd = strdup("=");
@@ -14,7 +14,7 @@ shell_ast *make_shell_ast_value(svec *args)
     return my_ast;
 }
 
-shell_ast *make_shell_ast_op(char *op, shell_ast *a0, shell_ast *a1)
+shell_ast *make_ast_op(char *op, shell_ast *a0, shell_ast *a1)
 {
     shell_ast *my_ast = malloc(sizeof(my_ast));
     my_ast->cmnd = strdup(op);
@@ -24,7 +24,7 @@ shell_ast *make_shell_ast_op(char *op, shell_ast *a0, shell_ast *a1)
     return my_ast;
 }
 
-void free_shell_ast(shell_ast *shell_ast)
+void free_ast(shell_ast *shell_ast)
 {
     if (shell_ast->larg)
     {
@@ -39,13 +39,13 @@ void free_shell_ast(shell_ast *shell_ast)
     free(shell_ast);
 }
 
-int shell_ast_eval(shell_ast *shell_ast)
+int ast_eval(shell_ast *shell_ast)
 {
     return 5;
 }
 
 char *
-shell_ast_string(shell_ast *shell_ast)
+ast_string(shell_ast *shell_ast)
 {
     if (!strcmp(shell_ast->cmnd, "="))
     {
@@ -76,7 +76,7 @@ shell_ast_string(shell_ast *shell_ast)
     }
 }
 
-void print_shell_ast(shell_ast *shell_ast)
+void print_ast(shell_ast *shell_ast)
 {
     char *text = shell_ast_string(shell_ast);
     printf("%s\n", text);

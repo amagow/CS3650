@@ -44,21 +44,23 @@ slice(svec *xs, int i0, int i1)
 shell_ast *
 parse(svec *toks)
 {
-    const char* ops[] = {"||", "&&", "<", "/"};
+    const char *ops[] = {";", "||", "&&", "&", "|", "<", ">"};
 
-    for (int ii = 0; ii < 4; ++ii) {
-        const char* op = ops[ii];
+    for (int ii = 0; ii < 7; ++ii)
+    {
+        const char *op = ops[ii];
 
-        if (contains(toks, op)) {
+        if (contains(toks, op))
+        {
             int jj = find_first_index(toks, op);
-            svec* xs = slice(toks, 0, jj);
-            svec* ys = slice(toks, jj + 1, toks->size);
-            shell_ast* ast = make_ast_op(op, parse(xs), parse(ys));
+            svec *xs = slice(toks, 0, jj);
+            svec *ys = slice(toks, jj + 1, toks->size);
+            shell_ast *ast = make_ast_op(op, parse(xs), parse(ys));
             free(xs);
             free(ys);
             return ast;
         }
     }
-    shell_ast* ast = make_ast_value(toks);
+    shell_ast *ast = make_ast_value(toks);
     return ast;
 }

@@ -78,7 +78,7 @@ ast_string(shell_ast *shell_ast)
 
 void print_ast(shell_ast *shell_ast)
 {
-    char *text = shell_ast_string(shell_ast);
+    char *text = ast_string(shell_ast);
     printf("%s\n", text);
     free(text);
 }

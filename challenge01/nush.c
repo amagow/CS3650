@@ -51,10 +51,10 @@ void execute(char *cmd)
         return;
     }
 
-    // shell_ast *ast = parse(args);
-    // print_ast(ast);
-    eval(args->data, args->size);
-    // free_ast(ast);
+    shell_ast *ast = parse(args);
+    print_ast(ast);
+    // eval(args->data, args->size);
+    free_ast(ast);
     free_svec(args);
 }
 

@@ -57,6 +57,6 @@ parse(svec *toks)
         }
     }
 
-    shell_ast *ast = slice(toks,0,toks->size);
+    shell_ast *ast = make_ast_value(slice(toks,0,toks->size));
     return ast;
 }

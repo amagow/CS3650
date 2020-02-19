@@ -59,7 +59,7 @@ ast_string(shell_ast *shell_ast)
                 tmp = realloc(tmp, 256 * sizeof(char));
                 tmp_len += 256;
             }
-            tmp_size += sprintf(pos, "(%s)", shell_ast->args->data[i]);
+            tmp_size += sprintf(pos, "((%s))", shell_ast->args->data[i]);
             pos += tmp_size;
         }
         return tmp;

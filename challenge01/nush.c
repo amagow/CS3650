@@ -40,6 +40,8 @@ void eval(char *const args[], int size)
 void execute(char *cmd)
 {
     svec *args = tokenize(cmd);
+    puts("Vector");
+    print_vec(args);
     if (!strcmp(args->data[0], "exit"))
     {
         exit(0);
@@ -52,6 +54,7 @@ void execute(char *cmd)
     }
 
     shell_ast *ast = parse(args);
+    puts("AST");
     print_ast(ast);
     // eval(args->data, args->size);
     free_ast(ast);

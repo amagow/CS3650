@@ -115,7 +115,7 @@ int main(int argc, char *argv[])
     printf("%ld\n", count);
     for (size_t i = 0; i < count; i++)
     {
-        printf("%f", data[i]);
+        printf("%f\n", data[i]);
     }
     
 

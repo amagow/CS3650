@@ -12,23 +12,29 @@
 #include "barrier.h"
 #include "utils.h"
 
-int comp(const void * a, const void * b){
-    return ( *(long*)a - *(long*)b );
+int comp(const void *a, const void *b)
+{
+    return (*(long *)a - *(long *)b);
 }
 
-    void qsort_floats(floats *xs)
+void qsort_floats(floats *xs)
 {
     // TODO: call qsort to sort the array
     // see "man 3 qsort" for details
     //FIX : length of the array
-    qsort(xs, 0, sizeof(long), comp);
+    qsort(xs->data, xs->size, sizeof(long), comp);
 }
 
 floats *
 sample(float *data, long size, int P)
 {
+    floats *xs = make_floats(1);
     // TODO: sample the input data, per the algorithm decription
-    return make_floats(10);
+    for (int ii = 0; ii < 3 * (P - 1); ++ii)
+    {
+        floats_push(xs, data[rand() % size]);
+    }
+    return xs;
 }
 
 void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *sizes, barrier *bb)
@@ -64,6 +70,7 @@ void run_sort_workers(float *data, long size, int P, floats *samps, long *sizes,
 void sample_sort(float *data, long size, int P, long *sizes, barrier *bb)
 {
     floats *samps = sample(data, size, P);
+    floats_print(samps);
     run_sort_workers(data, size, P, samps, sizes, bb);
     free_floats(samps);
 }
@@ -105,32 +112,24 @@ int main(int argc, char *argv[])
 
     //Open mmaps
     long *fileCount = mmap(0, sizeof(long), PROT_READ,
-                      MAP_FILE | MAP_PRIVATE, fd, 0); 
+                           MAP_FILE | MAP_PRIVATE, fd, 0);
+    //First 8 bits of the file is a long type
     long count = fileCount[0];
-    
-    float *fileArray = mmap(0, count * sizeof(float), PROT_READ,
-                      MAP_FILE | MAP_PRIVATE, fd, 0);                  
-    float *data = &fileArray[2];
 
-    printf("%ld\n", count);
-    for (size_t i = 0; i < count; i++)
-    {
-        printf("%f\n", data[i]);
-    }
-    
+    float *fileArray = mmap(0, count * sizeof(float), PROT_READ,
+                            MAP_FILE | MAP_PRIVATE, fd, 0);
+    //Next few bits are for the array data
+    float *data = &fileArray[2];
 
     long sizes_bytes = P * sizeof(long);
     long *sizes = mmap(0, sizes_bytes, PROT_READ | PROT_WRITE,
                        MAP_SHARED | MAP_ANONYMOUS, -1, 0); // TODO: This should be shared
 
     barrier *bb = make_barrier(P);
-    (void)sizes;
-    (void)data;
-    // sample_sort(data, count, P, sizes, bb);
+    sample_sort(data, count, P, sizes, bb);
 
     free_barrier(bb);
 
-    // TODO: munmap your mmaps
     munmap(fileCount, sizeof(long));
     munmap(fileArray, count * sizeof(float));
     return 0;

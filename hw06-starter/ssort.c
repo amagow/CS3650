@@ -109,7 +109,7 @@ int main(int argc, char *argv[])
     long count = fileCount[0];
     
     float *fileArray = mmap(0, count * sizeof(float), PROT_READ,
-                      MAP_FILE | MAP_PRIVATE, fd, 0);                  
+                      MAP_FILE | MAP_PRIVATE, fd, sizeof(long));                  
     float *data = fileArray;
 
     printf("%ld\n", count);

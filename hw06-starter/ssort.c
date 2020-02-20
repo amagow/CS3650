@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
     check_rv(fd);
 
     //FIX: unknown size??
-    int size = 1024;
+    int size = 1024 * sizeof(long);
 
     float *file = mmap(0, size, PROT_READ,
                       MAP_FILE | MAP_PRIVATE, fd, 0); // TODO: load the file with mmap.

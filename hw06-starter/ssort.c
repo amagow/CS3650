@@ -95,19 +95,22 @@ main(int argc, char* argv[])
     int fd = open(fname, O_RDWR);
     check_rv(fd);
 
-    void* file = mmap(0,1024,PROT_READ|PROT_WRITE,
-                     MAP_SHARED|MAP_ANONYMOUS, fd, 0); // TODO: load the file with mmap.
+    int size = 1024;
+
+    void* file = mmap(0,size,PROT_READ,
+                     MAP_FILE|MAP_PRIVATE, fd, 0); // TODO: load the file with mmap.
     (void) file; // suppress unused warning.
 
     // TODO: These should probably be from the input file.
-    long count = 100;
-    float* data = malloc(1024);
+    long count = P;
+    float* data = file;
 
     printf("%ld", count);
     printf("%f", data[0]);
 
     long sizes_bytes = P * sizeof(long);
-    long* sizes = malloc(sizes_bytes); // TODO: This should be shared
+    long* sizes = mmap(0,sizes_bytes,PROT_READ|PROT_WRITE,
+                     MAP_SHARED|MAP_ANONYMOUS, -1, 0); // TODO: This should be shared
 
     barrier* bb = make_barrier(P);
 
@@ -116,7 +119,7 @@ main(int argc, char* argv[])
     free_barrier(bb);
 
     // TODO: munmap your mmaps
-    munmap(file, 1024);
+    munmap(file, size);
     return 0;
 }
 

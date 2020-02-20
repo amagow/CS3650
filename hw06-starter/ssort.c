@@ -124,6 +124,7 @@ int main(int argc, char *argv[])
 
     barrier *bb = make_barrier(P);
     (void)sizes;
+    (void)data;
     // sample_sort(data, count, P, sizes, bb);
 
     free_barrier(bb);

@@ -110,7 +110,7 @@ int main(int argc, char *argv[])
     
     float *fileArray = mmap(0, count * sizeof(float), PROT_READ,
                       MAP_FILE | MAP_PRIVATE, fd, sizeof(long));                  
-    float *data = fileArray;
+    float *data = &fileArray[2];
 
     printf("%ld\n", count);
     for (size_t i = 0; i < count; i++)

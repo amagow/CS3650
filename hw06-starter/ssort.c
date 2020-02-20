@@ -112,12 +112,11 @@ int main(int argc, char *argv[])
     // TODO: These should probably be from the input file.
     long count = 0;
     while(file[count]){
-        count ++;
+        printf("%f\n", file[count]);
     }
     float *data = file;
 
     printf("%ld\n", count);
-    printf("%f\n", data[0]);
 
     long sizes_bytes = P * sizeof(long);
     long *sizes = mmap(0, sizes_bytes, PROT_READ | PROT_WRITE,

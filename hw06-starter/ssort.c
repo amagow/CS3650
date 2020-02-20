@@ -113,6 +113,7 @@ int main(int argc, char *argv[])
     long count = 0;
     while(file[count]){
         printf("%f\n", file[count]);
+        count ++;
     }
     float *data = file;
 

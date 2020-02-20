@@ -28,7 +28,7 @@ void qsort_floats(floats *xs)
 floats *
 sample(float *data, long size, int P)
 {
-    floats *xs = make_floats(1);
+    floats *xs = make_floats(3 * (P - 1));
     // TODO: sample the input data, per the algorithm decription
     for (int ii = 0; ii < 3 * (P - 1) - 1; ++ii)
     {
@@ -129,7 +129,6 @@ int main(int argc, char *argv[])
     {
         printf("%f\n", data[i]);
     }
-    
 
     barrier *bb = make_barrier(P);
     sample_sort(data, count, P, sizes, bb);

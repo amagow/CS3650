@@ -106,17 +106,19 @@ int main(int argc, char *argv[])
     //FIX: unknown size??
     int size = 20 * sizeof(long);
 
-    float *file = mmap(0, size, PROT_READ,
+    long *file = mmap(0, size, PROT_READ,
                       MAP_FILE | MAP_PRIVATE, fd, 0); // TODO: load the file with mmap.
-
-    // TODO: These should probably be from the input file.
-    for(size_t ii = 0; ii < 25; ++ii){
-        printf("%f\n", file[ii]);
-    }
-    long count = 20;
+    long count = file[0];
+    float *file = mmap(0, size, PROT_READ,
+                      MAP_FILE | MAP_PRIVATE, fd, 8);
     float *data = file;
 
     printf("%ld\n", count);
+    for (size_t i = 0; i < 20; i++)
+    {
+        printf("%f", data[i]);
+    }
+    
 
     long sizes_bytes = P * sizeof(long);
     long *sizes = mmap(0, sizes_bytes, PROT_READ | PROT_WRITE,

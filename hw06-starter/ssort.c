@@ -110,10 +110,10 @@ int main(int argc, char *argv[])
                       MAP_FILE | MAP_PRIVATE, fd, 0); // TODO: load the file with mmap.
 
     // TODO: These should probably be from the input file.
-    long count = 0;
     for(size_t ii = 0; ii < 20; ++ii){
-        printf("%f\n", file[count]);
+        printf("%f\n", file[ii]);
     }
+    long count = 20;
     float *data = file;
 
     printf("%ld\n", count);

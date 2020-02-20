@@ -103,16 +103,12 @@ int main(int argc, char *argv[])
     int fd = open(fname, O_RDWR);
     check_rv(fd);
 
-    //FIX: unknown size??
-    int size = 20 * sizeof(long);
-
-    long *file = mmap(0, sizeof(long), PROT_READ,
+    long *fileCount = mmap(0, sizeof(long), PROT_READ,
                       MAP_FILE | MAP_PRIVATE, fd, 0); // TODO: load the file with mmap.
-    munmap(file, sizeof(long));
-    long count = file[0];
-    float *file = mmap(0, count * sizeof(float), PROT_READ,
+    long count = fileCount[0];
+    float *fileArray = mmap(0, count * sizeof(float), PROT_READ,
                       MAP_FILE | MAP_PRIVATE, fd, 8);
-    float *data = file;
+    float *data = fileArray;
 
     printf("%ld\n", count);
     for (size_t i = 0; i < 20; i++)
@@ -133,6 +129,7 @@ int main(int argc, char *argv[])
     free_barrier(bb);
 
     // TODO: munmap your mmaps
-    munmap(file, count * sizeof(float));
+    munmap(fileCount, sizeof(long));
+    munmap(fileArray, count * sizeof(float));
     return 0;
 }

@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
     //FIX: unknown size??
     int size = 1024;
 
-    long *file = mmap(0, size, PROT_READ,
+    float *file = mmap(0, size, PROT_READ,
                       MAP_FILE | MAP_PRIVATE, fd, 0); // TODO: load the file with mmap.
 
     // TODO: These should probably be from the input file.
@@ -124,7 +124,7 @@ int main(int argc, char *argv[])
                        MAP_SHARED | MAP_ANONYMOUS, -1, 0); // TODO: This should be shared
 
     barrier *bb = make_barrier(P);
-
+    (void)sizes;
     // sample_sort(data, count, P, sizes, bb);
 
     free_barrier(bb);

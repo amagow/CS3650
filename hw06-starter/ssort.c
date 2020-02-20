@@ -116,8 +116,8 @@ int main(int argc, char *argv[])
     }
     float *data = file;
 
-    printf("%ld", count);
-    printf("%f", data[0]);
+    printf("%ld\n", count);
+    printf("%f\n", data[0]);
 
     long sizes_bytes = P * sizeof(long);
     long *sizes = mmap(0, sizes_bytes, PROT_READ | PROT_WRITE,

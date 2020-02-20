@@ -30,7 +30,7 @@ sample(float *data, long size, int P)
 {
     floats *xs = make_floats(1);
     // TODO: sample the input data, per the algorithm decription
-    for (int ii = 0; ii < 3 * (P - 1); ++ii)
+    for (int ii = 0; ii < 3 * (P - 1) - 1; ++ii)
     {
         floats_push(xs, data[rand() % size]);
     }

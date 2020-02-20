@@ -111,9 +111,8 @@ int main(int argc, char *argv[])
 
     // TODO: These should probably be from the input file.
     long count = 0;
-    while(file[count]){
+    for(size_t ii = 0; ii < 20; ++ii){
         printf("%f\n", file[count]);
-        count ++;
     }
     float *data = file;
 

@@ -39,7 +39,7 @@ sample(float *data, long size, int P)
     {
         floats_push(samples,xs->data[ii]);
     }
-    floats_push(samples, MAXFLOAT);
+    floats_push(samples, FLT_MAX);
 
     free(xs);
     return samples;

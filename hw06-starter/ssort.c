@@ -73,7 +73,7 @@ void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *s
     }
 
     qsort_floats(xs);
-    printf("This is proccess %d\n", pnum);
+    printf("This is proccess %d\n  ", pnum);
     floats_print(xs);
     barrier_wait(bb);
     for (int ii = start; ii < end; ii++)

@@ -74,7 +74,7 @@ void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *s
 
     qsort_floats(xs);
     barrier_wait(bb);
-    printf("process %d, with floats size %d\n", pnum, xs->size);
+    printf("process %d, with floats size %ld\n", pnum, xs->size);
     for (int ii = 0; ii < xs->size; ii++)
     {
         data[start + ii] = xs->data[ii];

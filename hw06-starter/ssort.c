@@ -73,7 +73,7 @@ void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *s
     }
 
     qsort_floats(xs);
-    printf("This is proccess %d", pnum);
+    printf("This is proccess %d\n", pnum);
     floats_print(xs);
     barrier_wait(bb);
     for (int ii = start; ii < end; ii++)
@@ -164,10 +164,10 @@ int main(int argc, char *argv[])
                        MAP_SHARED | MAP_ANONYMOUS, -1, 0); // TODO: This should be shared
 
     //Debugger output
-    for (size_t i = 0; i < count; i++)
-    {
-        printf("%f\n", data[i]);
-    }
+    // for (size_t i = 0; i < count; i++)
+    // {
+    //     printf("%f\n", data[i]);
+    // }
 
     barrier *bb = make_barrier(P);
     sample_sort(data, count, P, sizes, bb);

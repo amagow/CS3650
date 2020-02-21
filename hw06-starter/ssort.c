@@ -7,7 +7,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <math.h>
-
+#include <float.h>
 #include "float_vec.h"
 #include "barrier.h"
 #include "utils.h"
@@ -28,11 +28,21 @@ floats *
 sample(float *data, long size, int P)
 {
     floats *xs = make_floats(0);
+    floats *samples = make_floats(1);
     for (int ii = 0; ii < 3 * (P - 1); ++ii)
     {
         floats_push(xs, data[rand() % size]);
     }
-    return xs;
+    qsort_floats(xs);
+
+    for (int ii = 1; ii < xs->size - 1; ii++)
+    {
+        floats_push(samples,xs->data[ii]);
+    }
+    floats_push(samples, MAXFLOAT);
+
+    free(xs);
+    return samples;
 }
 
 void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *sizes, barrier *bb)
@@ -90,7 +100,7 @@ void sample_sort(float *data, long size, int P, long *sizes, barrier *bb)
 {
     floats *samps = sample(data, size, P);
     floats_print(samps);
-    run_sort_workers(data, size, P, samps, sizes, bb);
+    // run_sort_workers(data, size, P, samps, sizes, bb);
     free_floats(samps);
 }
 

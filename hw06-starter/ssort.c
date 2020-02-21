@@ -30,7 +30,7 @@ sample(float *data, long size, int P)
     floats *xs = make_floats(0);
 
     floats_push(xs, FLT_MIN);
-    
+
     int range = 3 * (P - 1);
     float tmp[range];
     for (int ii = 0; ii < range; ++ii)
@@ -38,11 +38,11 @@ sample(float *data, long size, int P)
         tmp[ii] = data[rand() % size];
     }
     qsort(tmp, range, sizeof(float), comp);
-    for (int ii = 1; ii < range; ii+=3)
+    for (int ii = 1; ii < range; ii += 3)
     {
-        floats_push(xs,tmp[ii]);
+        floats_push(xs, tmp[ii]);
     }
-    
+
     floats_push(xs, FLT_MAX);
 
     return xs;
@@ -51,31 +51,36 @@ sample(float *data, long size, int P)
 void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *sizes, barrier *bb)
 {
     floats *xs = make_floats(0);
-    long range = size / P;
-    size_t i0 = pnum * range;
-    size_t i1 = i0 + range;
-    // TODO: select the floats to be sorted by this worker
-    for (size_t ii = i0; ii < i1; ii++)
+    for (int ii = 0; ii < size; ii++)
     {
-        printf("samps Data %d at %ld: %f\n", pnum, ii, samps->data[ii]);
-        floats_push(xs, samps->data[ii]);
+        if (data[ii] > samps->data[pnum] && data[ii] < samps->data[pnum + 1])
+        {
+            floats_push(xs, data[ii]);
+        }
     }
 
     printf("%d: start %.04f, count %ld\n", pnum, samps->data[pnum], xs->size);
-
-    // TODO: some other stuff
+    sizes[pnum] = xs->size;
 
     qsort_floats(xs);
-    floats_print(xs);
+
     // TODO: probably more stuff
-    //Take median of each group of 3
+    int start = 0, end = 0;
+    for (int ii = 0; ii < pnum ; ii++)
+    {
+        start += sizes[ii];
+    }
+    for (int ii = 0; ii <= pnum ; ii++)
+    {
+        end += sizes[ii];
+    }
+    
     free_floats(xs);
 }
 
 void run_sort_workers(float *data, long size, int P, floats *samps, long *sizes, barrier *bb)
 {
     pid_t kids[P];
-    (void)kids; // suppress unused warning
 
     //help with the ranges of P processes
 

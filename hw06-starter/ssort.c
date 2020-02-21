@@ -109,7 +109,6 @@ void run_sort_workers(float *data, long size, int P, floats *samps, long *sizes,
 void sample_sort(float *data, long size, int P, long *sizes, barrier *bb)
 {
     floats *samps = sample(data, size, P);
-    floats_print(samps);
     // run_sort_workers(data, size, P, samps, sizes, bb);
     free_floats(samps);
 }

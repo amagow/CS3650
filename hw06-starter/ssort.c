@@ -73,7 +73,8 @@ void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *s
     }
 
     qsort_floats(xs);
-
+    printf("This is proccess %d", pnum);
+    floats_print(xs);
     barrier_wait(bb);
     for (int ii = start; ii < end; ii++)
     {
@@ -86,9 +87,6 @@ void run_sort_workers(float *data, long size, int P, floats *samps, long *sizes,
 {
     pid_t kids[P];
 
-    //help with the ranges of P processes
-
-    // TODO: spawn P processes, each running sort_worker
     for (int pp = 0; pp < P; ++pp)
     {
         if ((kids[pp] = fork()))
@@ -168,7 +166,7 @@ int main(int argc, char *argv[])
     //Debugger output
     for (size_t i = 0; i < count; i++)
     {
-         printf("%f\n", data[i]);
+        printf("%f\n", data[i]);
     }
 
     barrier *bb = make_barrier(P);
@@ -178,9 +176,9 @@ int main(int argc, char *argv[])
 
     for (size_t i = 0; i < count; i++)
     {
-         printf("%f\n", data[i]);
+        printf("%f\n", data[i]);
     }
-      
+
     munmap(fileCount, sizeof(long));
     munmap(fileArray, count * sizeof(float));
     return 0;

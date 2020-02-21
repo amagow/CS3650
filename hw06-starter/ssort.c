@@ -27,7 +27,9 @@ void qsort_floats(floats *xs)
 floats *
 sample(float *data, long size, int P)
 {
-    floats *xs = make_floats(1);
+    floats *xs = make_floats(0);
+
+    floats_push(xs, FLT_MIN);
     int range = 3 * (P - 1);
     float tmp[range];
     for (int ii = 0; ii < range; ++ii)

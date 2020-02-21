@@ -74,7 +74,7 @@ void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *s
 
     qsort_floats(xs);
     barrier_wait(bb);
-    puts("here")''
+    puts("here");
     for (int ii = 0; ii < xs->size; ii++)
     {
         printf("process %d: %f at pos", pnum, xs->data[ii]);

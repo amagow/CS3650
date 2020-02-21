@@ -14,14 +14,14 @@
 
 int comp(const void *a, const void *b)
 {
-    return (*(long *)a - *(long *)b);
+    return (*(float *)a - *(float *)b);
 }
 
 void qsort_floats(floats *xs)
 {
     // TODO: call qsort to sort the array
     // see "man 3 qsort" for details
-    qsort(xs->data, xs->size, sizeof(long), comp);
+    qsort(xs->data, xs->size, sizeof(float), comp);
 }
 
 floats *

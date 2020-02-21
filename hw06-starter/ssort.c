@@ -44,7 +44,7 @@ void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *s
     // TODO: select the floats to be sorted by this worker
     for (size_t ii = i0; ii < i1; ii++)
     {
-        printf("samps Data %d at ii: %f\n",pnum, samps->data[ii]);
+        printf("samps Data %d at %d: %f\n",pnum,ii, samps->data[ii]);
        floats_push(xs,samps->data[ii]);
     }
     

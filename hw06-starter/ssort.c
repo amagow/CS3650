@@ -27,37 +27,37 @@ void qsort_floats(floats *xs)
 floats *
 sample(float *data, long size, int P)
 {
-    floats *xs = make_floats(0);
-    floats *samples = make_floats(1);
-    for (int ii = 0; ii < 3 * (P - 1); ++ii)
+    floats *xs = make_floats(1);
+    int range = 3 * (P - 1);
+    float tmp[range];
+    for (int ii = 0; ii < range; ++ii)
     {
-        floats_push(xs, data[rand() % size]);
+        tmp[ii] = data[rand() % size];
     }
-    qsort_floats(xs);
-
-    for (int ii = 1; ii < xs->size - 1; ii++)
+    qsort(tmp, range, sizeof(float), comp);
+    for (int ii = 1; ii < range; ii+=3)
     {
-        floats_push(samples,xs->data[ii]);
+        floats_push(xs,tmp[ii]);
     }
-    floats_push(samples, FLT_MAX);
+    
+    floats_push(xs, FLT_MAX);
 
-    free(xs);
-    return samples;
+    return xs;
 }
 
 void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *sizes, barrier *bb)
 {
     floats *xs = make_floats(0);
-    long range = size/P;
+    long range = size / P;
     size_t i0 = pnum * range;
     size_t i1 = i0 + range;
     // TODO: select the floats to be sorted by this worker
     for (size_t ii = i0; ii < i1; ii++)
     {
-        printf("samps Data %d at %ld: %f\n",pnum,ii, samps->data[ii]);
-       floats_push(xs,samps->data[ii]);
+        printf("samps Data %d at %ld: %f\n", pnum, ii, samps->data[ii]);
+        floats_push(xs, samps->data[ii]);
     }
-    
+
     printf("%d: start %.04f, count %ld\n", pnum, samps->data[pnum], xs->size);
 
     // TODO: some other stuff
@@ -154,6 +154,7 @@ int main(int argc, char *argv[])
     long *sizes = mmap(0, sizes_bytes, PROT_READ | PROT_WRITE,
                        MAP_SHARED | MAP_ANONYMOUS, -1, 0); // TODO: This should be shared
 
+    //Debugger output
     for (size_t i = 0; i < count; i++)
     {
         printf("%f\n", data[i]);

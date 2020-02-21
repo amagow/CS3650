@@ -166,10 +166,10 @@ int main(int argc, char *argv[])
                        MAP_SHARED | MAP_ANONYMOUS, -1, 0); // TODO: This should be shared
 
     //Debugger output
-    // for (size_t i = 0; i < count; i++)
-    // {
-    //     printf("%f\n", data[i]);
-    // }
+    for (size_t i = 0; i < count; i++)
+    {
+         printf("%f\n", data[i]);
+    }
 
     barrier *bb = make_barrier(P);
     sample_sort(data, count, P, sizes, bb);
@@ -177,9 +177,9 @@ int main(int argc, char *argv[])
     free_barrier(bb);
 
     for (size_t i = 0; i < count; i++)
-     {
+    {
          printf("%f\n", data[i]);
-     }
+    }
       
     munmap(fileCount, sizeof(long));
     munmap(fileArray, count * sizeof(float));

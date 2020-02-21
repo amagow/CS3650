@@ -19,8 +19,6 @@ int comp(const void *a, const void *b)
 
 void qsort_floats(floats *xs)
 {
-    // TODO: call qsort to sort the array
-    // see "man 3 qsort" for details
     qsort(xs->data, xs->size, sizeof(float), comp);
 }
 
@@ -74,7 +72,11 @@ void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *s
     {
         end += sizes[ii];
     }
-    
+    barrier_wait(bb);
+    for (int ii = start; ii < end; ii++)
+    {
+        data[ii] = xs->data[ii - start];
+    }
     free_floats(xs);
 }
 
@@ -163,10 +165,10 @@ int main(int argc, char *argv[])
                        MAP_SHARED | MAP_ANONYMOUS, -1, 0); // TODO: This should be shared
 
     //Debugger output
-    for (size_t i = 0; i < count; i++)
-    {
-        printf("%f\n", data[i]);
-    }
+    // for (size_t i = 0; i < count; i++)
+    // {
+    //     printf("%f\n", data[i]);
+    // }
 
     barrier *bb = make_barrier(P);
     sample_sort(data, count, P, sizes, bb);

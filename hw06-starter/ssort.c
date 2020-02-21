@@ -21,7 +21,6 @@ void qsort_floats(floats *xs)
 {
     // TODO: call qsort to sort the array
     // see "man 3 qsort" for details
-    //FIX : length of the array
     qsort(xs->data, xs->size, sizeof(long), comp);
 }
 
@@ -29,7 +28,6 @@ floats *
 sample(float *data, long size, int P)
 {
     floats *xs = make_floats(0);
-    // TODO: sample the input data, per the algorithm decription
     for (int ii = 0; ii < 3 * (P - 1); ++ii)
     {
         floats_push(xs, data[rand() % size]);
@@ -39,17 +37,24 @@ sample(float *data, long size, int P)
 
 void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *sizes, barrier *bb)
 {
-    floats *xs = make_floats(10);
+    floats *xs = make_floats(0);
+    long range = size/P;
+    size_t i0 = pnum * range;
+    size_t i1 = i0 + range;
     // TODO: select the floats to be sorted by this worker
-
+    for (size_t ii = i0; ii < i1; ii++)
+    {
+       floats_push(xs,samps->data[ii]);
+    }
+    
     printf("%d: start %.04f, count %ld\n", pnum, samps->data[pnum], xs->size);
 
     // TODO: some other stuff
 
     qsort_floats(xs);
-
+    floats_print(xs);
     // TODO: probably more stuff
-
+    //Take median of each group of 3
     free_floats(xs);
 }
 
@@ -58,12 +63,25 @@ void run_sort_workers(float *data, long size, int P, floats *samps, long *sizes,
     pid_t kids[P];
     (void)kids; // suppress unused warning
 
+    //help with the ranges of P processes
+
     // TODO: spawn P processes, each running sort_worker
+    for (int pp = 0; pp < P; ++pp)
+    {
+        if ((kids[pp] = fork()))
+        {
+        }
+        else
+        {
+            sort_worker(pp, data, size, P, samps, sizes, bb);
+            exit(0);
+        }
+    }
 
     for (int ii = 0; ii < P; ++ii)
     {
-        //int rv = waitpid(kids[ii], 0, 0);
-        //check_rv(rv);
+        int rv = waitpid(kids[ii], 0, 0);
+        check_rv(rv);
     }
 }
 

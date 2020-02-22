@@ -150,7 +150,7 @@ int main(int argc, char *argv[])
 
     //Open mmaps
     long *fileCount = mmap(0, sizeof(long), PROT_READ,
-                           MAP_FILE | MAP_PRIVATE, fd, 0);
+                           MAP_FILE | MAP_SHARED, fd, 0);
     //First 8 bits of the file is a long type
     long count = fileCount[0];
 

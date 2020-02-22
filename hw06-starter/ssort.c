@@ -76,7 +76,7 @@ void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *s
     barrier_wait(bb);
     for (int ii = 0; ii < xs->size; ii++)
     {
-        printf("process %d, stores float %F at %ld\n", pnum,xs->data[ii] ,start + ii);
+        printf("process %d, stores float %F at %d\n", pnum,xs->data[ii] ,start + ii);
         data[start + ii] = xs->data[ii];
     }
     free_floats(xs);

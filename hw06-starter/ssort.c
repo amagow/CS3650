@@ -14,7 +14,9 @@
 
 int comp(const void *a, const void *b)
 {
-    return (*(float *)a - *(float *)b);
+    float fa = *(const float *)a;
+    float fb = *(const float *)b;
+    return (fa > fb) - (fa < fb);
 }
 
 void qsort_floats(floats *xs)
@@ -77,7 +79,7 @@ void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *s
     barrier_wait(bb);
     for (int ii = 0; ii < xs->size; ii++)
     {
-        printf("process %d, stores float %F at %d\n", pnum,xs->data[ii] ,start + ii);
+        printf("process %d, stores float %F at %d\n", pnum, xs->data[ii], start + ii);
         data[start + ii] = xs->data[ii];
     }
     free_floats(xs);
@@ -154,7 +156,7 @@ int main(int argc, char *argv[])
     //First 8 bits of the file is a long type
     long count = fileCount[0];
 
-    float *fileArray = mmap(0, count * sizeof(float), PROT_READ|PROT_WRITE,
+    float *fileArray = mmap(0, count * sizeof(float), PROT_READ | PROT_WRITE,
                             MAP_FILE | MAP_SHARED, fd, 0);
     //Next few bits are for the array data
     float *data = &fileArray[2];

@@ -77,8 +77,8 @@ void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *s
     printf("process %d, with floats size %ld\n", pnum, xs->size);
     for (int ii = 0; ii < xs->size; ii++)
     {
-        printf("%f\n", xs->data[ii]);
-        // data[start + ii] = xs->data[ii];
+        // printf("%f\n", xs->data[ii]);
+        data[start + ii] = xs->data[ii];
     }
     free_floats(xs);
 }
@@ -155,7 +155,7 @@ int main(int argc, char *argv[])
     long count = fileCount[0];
 
     float *fileArray = mmap(0, count * sizeof(float), PROT_READ,
-                            MAP_FILE | MAP_PRIVATE, fd, 0);
+                            MAP_FILE | MAP_SHARED, fd, 0);
     //Next few bits are for the array data
     float *data = &fileArray[2];
 
@@ -174,10 +174,10 @@ int main(int argc, char *argv[])
 
     free_barrier(bb);
 
-    // for (size_t i = 0; i < count; i++)
-    // {
-    //     printf("%f\n", data[i]);
-    // }
+    for (size_t i = 0; i < count; i++)
+    {
+        printf("%f\n", data[i]);
+    }
 
     munmap(fileCount, sizeof(long));
     munmap(fileArray, count * sizeof(float));

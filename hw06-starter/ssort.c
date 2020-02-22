@@ -12,9 +12,9 @@
 #include "barrier.h"
 #include "utils.h"
 
-int comp(const void *a, const void *b)
+int comp(const float *a, const float *b)
 {
-    return (*(float *)a - *(float *)b);
+    return (*a - *b);
 }
 
 void qsort_floats(floats *xs)

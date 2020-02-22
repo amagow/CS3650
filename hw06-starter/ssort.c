@@ -73,13 +73,13 @@ void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *s
     {
         end += sizes[ii];
     }
-    printf("process %d\n", pnum);
+    // printf("process %d\n", pnum);
     qsort_floats(xs);
-    floats_print(xs);
+    // floats_print(xs);
     barrier_wait(bb);
     for (int ii = 0; ii < xs->size; ii++)
     {
-        printf("process %d, stores float %F at %d\n", pnum, xs->data[ii], start + ii);
+        // printf("process %d, stores float %F at %d\n", pnum, xs->data[ii], start + ii);
         data[start + ii] = xs->data[ii];
     }
     free_floats(xs);
@@ -166,20 +166,20 @@ int main(int argc, char *argv[])
                        MAP_SHARED | MAP_ANONYMOUS, -1, 0); // TODO: This should be shared
 
     // Debugger output
-    for (size_t i = 0; i < count; i++)
-    {
-        printf("%f\n", data[i]);
-    }
+    // for (size_t i = 0; i < count; i++)
+    // {
+    //     printf("%f\n", data[i]);
+    // }
 
     barrier *bb = make_barrier(P);
     sample_sort(data, count, P, sizes, bb);
 
     free_barrier(bb);
 
-    for (size_t i = 0; i < count; i++)
-    {
-        printf("%f\n", data[i]);
-    }
+    // for (size_t i = 0; i < count; i++)
+    // {
+    //     printf("%f\n", data[i]);
+    // }
 
     munmap(fileCount, sizeof(long));
     munmap(fileArray, count * sizeof(float));

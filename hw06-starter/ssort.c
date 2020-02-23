@@ -16,7 +16,8 @@ int comp(const void *a, const void *b)
 {
     float fa = *(const float *)a;
     float fb = *(const float *)b;
-    if (fb == 99.9990){
+    if (fb == 99.9990 || fa == 99.990){
+        printf(":fa%f fb:%f", fa, fb);
         return -1;
     }
     return (fa > fb) - (fa < fb);

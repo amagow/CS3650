@@ -17,11 +17,11 @@ int comp(const void *a, const void *b)
     float fa = *(const float *)a;
     float fb = *(const float *)b;
     if (fa > 99.9990 && fa < 100){
-        printf(":fa%f fb:%f\n", fa, fb);
+        printf(":fa%f fb:%f and %d\n", fa, fb, (fa > fb) - (fa < fb));
         return -1;
     }
     if (fb > 99.9990 && fb < 100){
-        printf(":fa%f fb:%f\n", fa, fb);
+        printf(":fa%f fb:%f and %d\n", fa, fb, (fa > fb) - (fa < fb));
         return -1;
     }
     return (fa > fb) - (fa < fb);

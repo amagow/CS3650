@@ -17,7 +17,7 @@ int comp(const void *a, const void *b)
     float fa = *(const float *)a;
     float fb = *(const float *)b;
     if (fb == 99.9990){
-        return 1;
+        return -1;
     }
     return (fa > fb) - (fa < fb);
 }

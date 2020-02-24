@@ -1,0 +1,31 @@
+CS3650
+Adwithya Magow
+
+Testing sample sort with 50 million inputs:
+
+Local Machine Specification 
+Operating System: MacOS Catalina
+Processor: 2.7 GHz Dual-Core Intel Core i5
+Number of processors: Four
+RAM: 8 GB
+
+Virtual Box
+Operating System: Debian 10
+Processor: Intel(R) Core(TM) i5-5257U CPU @ 2.70GHz
+Number of processors: Four
+RAM: 187 GB
+
++---+----------------------------+--------------+------------------+
+| # |            Test            | Optimal Time | Parallel Speedup |
++---+----------------------------+--------------+------------------+
+| 1 | Local Machine, 1 process   | 12.59s       |                1 |
+| 2 | Local Machine, 4 processes | 16.15s       |            0.914 |
+| 3 | Local Machine, 8 processes | 22.65s       |            0.688 |
+| 4 | CCIS Server, 1 process     | 18.12s       |                1 |
+| 5 | CCIS Server, 4 processes   | 7.3s         |             2.48 |
+| 6 | CCIS Server, 8 processes   | 3.94s        |              4.6 |
++---+----------------------------+--------------+------------------+
+
+I am uncertain as to why my Macbook Pro actually led to a reduction of the speed.
+But due to the increase in parallel speed up in the server, I can say for sure that the smaple sort algorithm is an
+effective sorting algorithm.

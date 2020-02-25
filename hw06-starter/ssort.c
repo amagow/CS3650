@@ -67,11 +67,17 @@ void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *s
         }
     }
 
+    for (int ii = 0; ii < xs->size; ii++)
+    {
+        assert(data[ii] >= samps->data[pnum] && data[ii] < samps->data[pnum + 1]);
+    }
+    
+
     printf("%d: start %.04f, count %ld\n", pnum, samps->data[pnum], xs->size);
     sizes[pnum] = xs->size;
 
     barrier_wait(bb);
-
+    
     int start = 0, end = 0;
     for (int ii = 0; ii < pnum; ii++)
     {

@@ -70,7 +70,7 @@ void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *s
 
     for (int ii = 0; ii < xs->size; ii++)
     {
-        assert(data[ii] >= samps->data[pnum] && data[ii] < samps->data[pnum + 1]);
+        assert(xs->data[ii] >= samps->data[pnum] && xs->data[ii] < samps->data[pnum + 1]);
     }
     
 

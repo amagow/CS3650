@@ -70,7 +70,7 @@ void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *s
 
     barrier_wait(bb);
 
-    int start = 0, end = 0;
+    long start = 0, end = 0;
     for (int ii = 0; ii < pnum; ii++)
     {
         start += sizes[ii];
@@ -79,6 +79,7 @@ void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *s
     {
         end += sizes[ii];
     }
+    printf("Proccess %d: %ld %ld",pnum);
     // printf("process %d\n", pnum);
     qsort_floats(xs);
     // floats_print(xs);
@@ -187,7 +188,8 @@ int main(int argc, char *argv[])
     // {
     //     printf("%f\n", data[i]);
     // }
-
+    
+    munmap(sizes, sizes_bytes);
     munmap(fileCount, sizeof(long));
     munmap(fileArray, count * sizeof(float));
     return 0;

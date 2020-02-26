@@ -237,17 +237,19 @@ sample(float* data, long size, int P)
     // TODO: sample the input data, per the algorithm decription
     floats* make = make_floats(1);
     long sample_size = 3*(P-1);
+    floats* temp = make_floats(0);
     // float prearray[sample_size];
     for (int i=0;i<sample_size;i++){
         // make->data[i] = data[rand()%sample_size];
-        floats_push(make, data[rand()%sample_size]);
+        floats_push(temp, data[rand()%sample_size]);
     }
     qsort_floats(make);
     for (int j=1;j<sample_size;j+=3){
-        floats_push(make, (float)j);
+        floats_push(make, temp->data[j]);
     }
     floats_push(make, FLT_MAX);
     // floats_print(make);
+    free_floats(temp);
     return make;
     
 }
@@ -280,8 +282,8 @@ sort_worker(int pnum, float* data, long size, int P, floats* samps, long* sizes,
     barrier_wait(bb);
 
     // TODO: probably more stuff
-    for (int ii=0; ii<xs->size; ii++){
-        data[start+ii] = xs->data[ii];
+    for (int ii=start; ii<end; ii++){
+        data[ii] = xs->data[ii - start];
     }
 
     free_floats(xs);
@@ -354,7 +356,6 @@ main(int argc, char* argv[])
     float* xf = mmap(0, size*sizeof(float), PROT_READ|PROT_WRITE, MAP_SHARED|MAP_FILE, fd, 0);
     xf = &xf[2];
 
-    (void) file; // suppress unused warning.
 
     // TODO: These should probably be from the input file.
     // long count = 100;
@@ -370,6 +371,7 @@ main(int argc, char* argv[])
     free_barrier(bb);
 
     // TODO: munmap your mmaps
+    munmap(sizes,sizes_bytes);
     munmap(xl,sizeof(long));
     munmap(xf,size*sizeof(float));
     return 0;

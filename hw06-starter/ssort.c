@@ -350,7 +350,6 @@ main(int argc, char* argv[])
     int fd = open(fname, O_RDWR);
     check_rv(fd);
 
-    void* file = malloc(1024); // TODO: load the file with mmap.
     long* xl = mmap(0, sizeof(long), PROT_READ, MAP_PRIVATE|MAP_FILE, fd, 0);
     long size = xl[0];
     float* xf = mmap(0, size*sizeof(float), PROT_READ|PROT_WRITE, MAP_SHARED|MAP_FILE, fd, 0);
@@ -362,7 +361,7 @@ main(int argc, char* argv[])
     // float* data = malloc(1024);
 
     long sizes_bytes = P * sizeof(long);
-    long* sizes = malloc(sizes_bytes); // TODO: This should be shared
+    long* sizes = mmap(0, sizes_bytes, PROT_READ|PROT_WRITE, MAP_SHARED|MAP_ANON, -1, 0);
 
     barrier* bb = make_barrier(P);
 

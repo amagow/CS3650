@@ -86,6 +86,7 @@ void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *s
     for (int ii = start; ii < end; ii++)
     {
         // printf("process %d, stores float %F at %d\n", pnum, xs->data[ii], start + ii);
+        assert(xs->data[ii - start] > samps->data[pnum] && xs->data[ii - start] <= samps->data[pnum + 1]);
         data[ii] = xs->data[ii - start];
     }
     free_floats(xs);

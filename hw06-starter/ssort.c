@@ -68,7 +68,6 @@ void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *s
     printf("%d: start %.04f, count %ld\n", pnum, samps->data[pnum], xs->size);
     sizes[pnum] = xs->size;
 
-    printf("Process %d barrier 1", pnum);
     barrier_wait(bb);
 
     int start = 0, end = 0;
@@ -83,7 +82,6 @@ void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *s
     // printf("process %d\n", pnum);
     qsort_floats(xs);
     // floats_print(xs);
-    printf("Process %d barrier 2", pnum);
     barrier_wait(bb);
     for (int ii = start; ii <= end; ii++)
     {
@@ -186,10 +184,10 @@ int main(int argc, char *argv[])
 
     free_barrier(bb);
 
-    // for (size_t i = 0; i < count; i++)
-    // {
-    //     printf("%f\n", data[i]);
-    // }
+    for (size_t i = 0; i < count; i++)
+    {
+        printf("%f\n", data[i]);
+    }
 
     munmap(fileCount, sizeof(long));
     munmap(fileArray, count * sizeof(float));

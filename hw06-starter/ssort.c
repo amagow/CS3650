@@ -183,10 +183,10 @@ int main(int argc, char *argv[])
 
     free_barrier(bb);
 
-    for (size_t i = 0; i < count; i++)
-    {
-        printf("%f\n", data[i]);
-    }
+    // for (size_t i = 0; i < count; i++)
+    // {
+    //     printf("%f\n", data[i]);
+    // }
 
     munmap(fileCount, sizeof(long));
     munmap(fileArray, count * sizeof(float));

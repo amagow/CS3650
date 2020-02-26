@@ -235,7 +235,8 @@ floats*
 sample(float* data, long size, int P)
 {
     // TODO: sample the input data, per the algorithm decription
-    floats* make = make_floats(1);
+    floats* make = make_floats(0);
+    floats_push(make, FLT_MIN);
     long sample_size = 3*(P-1);
     floats* temp = make_floats(0);
     // float prearray[sample_size];
@@ -263,11 +264,9 @@ sort_worker(int pnum, float* data, long size, int P, floats* samps, long* sizes,
             floats_push(xs, data[i]);
         }
     }
-    // TODO: select the floats to be sorted by this worker
 
     printf("%d: start %.04f, count %ld\n", pnum, samps->data[pnum], xs->size);
 
-    // TODO: some other stuff
     sizes[pnum] = xs->size;
     barrier_wait(bb);
     long start = 0;
@@ -281,7 +280,6 @@ sort_worker(int pnum, float* data, long size, int P, floats* samps, long* sizes,
     qsort_floats(xs);
     barrier_wait(bb);
 
-    // TODO: probably more stuff
     for (int ii=start; ii<end; ii++){
         data[ii] = xs->data[ii - start];
     }

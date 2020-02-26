@@ -17,6 +17,10 @@ int comp(const void *a, const void *b)
 {
     float fa = *(const float *)a;
     float fb = *(const float *)b;
+    if(fa == 99.999001)
+    return 1;
+    if(fb == 99.999001)
+    return -1;
     return (fa > fb) - (fa < fb);
 }
 
@@ -184,10 +188,10 @@ int main(int argc, char *argv[])
 
     free_barrier(bb);
 
-    // for (size_t i = 0; i < count; i++)
-    // {
-    //     printf("%f\n", data[i]);
-    // }
+    for (size_t i = 0; i < count; i++)
+    {
+        printf("%f\n", data[i]);
+    }
 
     munmap(sizes, sizes_bytes);
     munmap(fileCount, sizeof(long));

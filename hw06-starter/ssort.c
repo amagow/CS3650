@@ -249,7 +249,8 @@ sample(float* data, long size, int P)
         floats_push(make, temp->data[j]);
     }
     floats_push(make, FLT_MAX);
-    // floats_print(make);
+    puts("SAMPLE ARRAY:");
+    floats_print(make);
     free_floats(temp);
     return make;
     

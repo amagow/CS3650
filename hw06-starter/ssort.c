@@ -17,14 +17,6 @@ int comp(const void *a, const void *b)
 {
     float fa = *(const float *)a;
     float fb = *(const float *)b;
-    if (fa == 99.9990){
-        printf(":fa%f fb:%f and %d\n", fa, fb, (fa > fb) - (fa < fb));
-        return -1;
-    }
-    if (fb == 99.9990){
-        printf(":fa%f fb:%f and %d\n", fa, fb, (fa > fb) - (fa < fb));
-        return -1;
-    }
     return (fa > fb) - (fa < fb);
 }
 
@@ -72,13 +64,12 @@ void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *s
     {
         assert(xs->data[ii] >= samps->data[pnum] && xs->data[ii] < samps->data[pnum + 1]);
     }
-    
 
     printf("%d: start %.04f, count %ld\n", pnum, samps->data[pnum], xs->size);
     sizes[pnum] = xs->size;
 
     barrier_wait(bb);
-    
+
     int start = 0, end = 0;
     for (int ii = 0; ii < pnum; ii++)
     {
@@ -108,6 +99,8 @@ void run_sort_workers(float *data, long size, int P, floats *samps, long *sizes,
     {
         if ((kids[pp] = fork()))
         {
+            int rv = waitpid(kids[pp], 0, 0);
+            check_rv(rv);
         }
         else
         {
@@ -116,11 +109,11 @@ void run_sort_workers(float *data, long size, int P, floats *samps, long *sizes,
         }
     }
 
-    for (int ii = 0; ii < P; ++ii)
-    {
-        int rv = waitpid(kids[ii], 0, 0);
-        check_rv(rv);
-    }
+    // for (int ii = 0; ii < P; ++ii)
+    // {
+    //     int rv = waitpid(kids[ii], 0, 0);
+    //     check_rv(rv);
+    // }
 }
 
 void sample_sort(float *data, long size, int P, long *sizes, barrier *bb)

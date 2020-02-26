@@ -54,7 +54,7 @@ void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *s
     floats *xs = make_floats(0);
     for (int ii = 0; ii < size; ii++)
     {
-        if (data[ii] >= samps->data[pnum] && data[ii] < samps->data[pnum + 1])
+        if (data[ii] > samps->data[pnum] && data[ii] <= samps->data[pnum + 1])
         {
             floats_push(xs, data[ii]);
         }
@@ -62,7 +62,7 @@ void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *s
 
     for (int ii = 0; ii < xs->size; ii++)
     {
-        assert(xs->data[ii] >= samps->data[pnum] && xs->data[ii] < samps->data[pnum + 1]);
+        assert(xs->data[ii] > samps->data[pnum] && xs->data[ii] <= samps->data[pnum + 1]);
     }
 
     printf("%d: start %.04f, count %ld\n", pnum, samps->data[pnum], xs->size);
@@ -79,7 +79,6 @@ void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *s
     {
         end += sizes[ii];
     }
-    printf("Proccess %d: %ld %ld\n",pnum, start, end);
     // printf("process %d\n", pnum);
     qsort_floats(xs);
     // floats_print(xs);

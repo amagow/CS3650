@@ -363,9 +363,19 @@ main(int argc, char* argv[])
 
     barrier* bb = make_barrier(P);
 
+        for (size_t i = 0; i < size; i++)
+    {
+        printf("%f\n", xf[i]);
+    }
+
     sample_sort(xf, size, P, sizes, bb);
 
     free_barrier(bb);
+
+    for (size_t i = 0; i < size; i++)
+    {
+        printf("%f\n", xf[i]);
+    }
 
     // TODO: munmap your mmaps
     munmap(sizes,sizes_bytes);

@@ -83,7 +83,7 @@ void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *s
     qsort_floats(xs);
     // floats_print(xs);
     barrier_wait(bb);
-    for (int ii = start; ii <= end; ii++)
+    for (int ii = start; ii < end; ii++)
     {
         // printf("process %d, stores float %F at %d\n", pnum, xs->data[ii], start + ii);
         data[ii] = xs->data[ii - start];
@@ -99,8 +99,7 @@ void run_sort_workers(float *data, long size, int P, floats *samps, long *sizes,
     {
         if ((kids[pp] = fork()))
         {
-            // int rv = waitpid(kids[pp], 0, 0);
-            // check_rv(rv);
+            
         }
         else
         {

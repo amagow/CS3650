@@ -101,8 +101,8 @@ void run_sort_workers(float *data, long size, int P, floats *samps, long *sizes,
     {
         if ((kids[pp] = fork()))
         {
-            int rv = waitpid(kids[pp], 0, 0);
-            check_rv(rv);
+            // int rv = waitpid(kids[pp], 0, 0);
+            // check_rv(rv);
         }
         else
         {
@@ -111,11 +111,11 @@ void run_sort_workers(float *data, long size, int P, floats *samps, long *sizes,
         }
     }
 
-    // for (int ii = 0; ii < P; ++ii)
-    // {
-    //     int rv = waitpid(kids[ii], 0, 0);
-    //     check_rv(rv);
-    // }
+    for (int ii = 0; ii < P; ++ii)
+    {
+        int rv = waitpid(kids[ii], 0, 0);
+        check_rv(rv);
+    }
 }
 
 void sample_sort(float *data, long size, int P, long *sizes, barrier *bb)

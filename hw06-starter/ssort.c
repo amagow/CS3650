@@ -269,6 +269,8 @@ sort_worker(int pnum, float* data, long size, int P, floats* samps, long* sizes,
 
     sizes[pnum] = xs->size;
     barrier_wait(bb);
+    printf("Process %d\n", pnum);
+    floats_print(xs);
     long start = 0;
     for (int i=0; i<=pnum-1; i++){
         start = start + sizes[i];

@@ -249,8 +249,8 @@ sample(float* data, long size, int P)
     }
     qsort_floats(make);
     floats_push(make, FLT_MAX);
-    puts("SAMPLE ARRAY:");
-    floats_print(make);
+    // puts("SAMPLE ARRAY:");
+    // floats_print(make);
     free_floats(temp);
     return make;
     
@@ -270,8 +270,8 @@ sort_worker(int pnum, float* data, long size, int P, floats* samps, long* sizes,
 
     sizes[pnum] = xs->size;
     barrier_wait(bb);
-    printf("Process %d\n", pnum);
-    floats_print(xs);
+    // printf("Process %d\n", pnum);
+    // floats_print(xs);
     long start = 0;
     for (int i=0; i<=pnum-1; i++){
         start = start + sizes[i];
@@ -366,19 +366,19 @@ main(int argc, char* argv[])
 
     barrier* bb = make_barrier(P);
 
-        for (size_t i = 0; i < size; i++)
-    {
-        printf("%f\n", xf[i]);
-    }
+    //     for (size_t i = 0; i < size; i++)
+    // {
+    //     printf("%f\n", xf[i]);
+    // }
 
     sample_sort(xf, size, P, sizes, bb);
 
     free_barrier(bb);
 
-    for (size_t i = 0; i < size; i++)
-    {
-        printf("%f\n", xf[i]);
-    }
+    // for (size_t i = 0; i < size; i++)
+    // {
+    //     printf("%f\n", xf[i]);
+    // }
 
     // TODO: munmap your mmaps
     munmap(sizes,sizes_bytes);

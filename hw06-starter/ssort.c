@@ -244,10 +244,10 @@ sample(float* data, long size, int P)
         // make->data[i] = data[rand()%sample_size];
         floats_push(temp, data[rand()%sample_size]);
     }
-    qsort_floats(make);
     for (int j=1;j<sample_size;j+=3){
         floats_push(make, temp->data[j]);
     }
+    qsort_floats(make);
     floats_push(make, FLT_MAX);
     puts("SAMPLE ARRAY:");
     floats_print(make);

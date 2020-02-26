@@ -254,7 +254,7 @@ void sort_worker(int pnum, float *data, long size, int P, floats *samps, long *s
     int counter = 0;
     for (int ii = 0; ii < size; ii++)
     {
-        if (samps->data[pnum] <= data[ii] < samps->data[pnum + 1])
+        if (samps->data[pnum] <= data[ii] && data[ii] < samps->data[pnum + 1])
         {
             counter++;
             if (counter < 10)

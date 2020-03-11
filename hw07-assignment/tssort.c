@@ -82,9 +82,10 @@ void *sort_worker(void *arg)
     printf("%d: start %.04f, count %ld\n", t_arg->pnum, t_arg->samps->data[t_arg->pnum], xs->size);
     t_arg->sizes[t_arg->pnum] = xs->size;
 
+    printf("reached 0 %d", t_arg->pnum);
     barrier_wait(t_arg->bb);
 
-    printf("reached 2 %d", t_arg->pnum);
+    printf("reached 1 %d", t_arg->pnum);
     long start = 0, end = 0;
     for (int ii = 0; ii < t_arg->pnum; ii++)
     {

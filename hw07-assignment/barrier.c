@@ -13,7 +13,6 @@
 barrier *
 make_barrier(int nn)
 {
-    int rv;
     barrier *bb = malloc(sizeof(barrier));
     assert(bb != 0);
 

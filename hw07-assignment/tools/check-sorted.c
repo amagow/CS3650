@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
     FILE *data = fopen(fname, "r");
     assert(data != NULL);
     rv = fread(&count, sizeof(long), 1, data);
+    printf("%d and num:%f num\n", rv, count);
     assert(rv == 1);
 
     if (count == 0)

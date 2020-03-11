@@ -182,6 +182,7 @@ int main(int argc, char *argv[])
     //Open file
     int fd = open(fname, O_RDONLY);
     int fd2 = open(fname2, O_CREAT | O_WRONLY | O_TRUNC);
+    puts("sd");
     check_rv(fd);
     check_rv(fd2);
 

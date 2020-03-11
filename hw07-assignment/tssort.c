@@ -181,7 +181,7 @@ int main(int argc, char *argv[])
 
     //Open file
     int fd = open(fname, O_RDONLY);
-    int fd2 = open(fname2, O_CREAT | O_WRONLY | O_TRUNC | 0600);
+    int fd2 = open(fname2, O_CREAT | O_WRONLY | O_TRUNC);
     check_rv(fd);
     check_rv(fd2);
 

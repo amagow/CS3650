@@ -85,7 +85,7 @@ void *sort_worker(void *arg)
     // printf("reached 0 %d\n", t_arg->pnum);
     barrier_wait(t_arg->bb);
 
-    printf("reached 1 %d\n", t_arg->pnum);
+    // printf("reached 1 %d\n", t_arg->pnum);
     long start = 0, end = 0;
     for (int ii = 0; ii < t_arg->pnum; ii++)
     {
@@ -98,8 +98,8 @@ void *sort_worker(void *arg)
     // printf("process %d\n", pnum);
     qsort_floats(xs);
     // floats_print(xs);
-    barrier_wait(t_arg->bb);
-    printf("reached 2 %d \nstart %ld and end %ld\n", t_arg->pnum, start, end);
+    // barrier_wait(t_arg->bb);
+    // printf("reached 2 %d \nstart %ld and end %ld\n", t_arg->pnum, start, end);
     floats_print(xs);
     for (int ii = start; ii < end; ii++)
     {
@@ -212,11 +212,11 @@ int main(int argc, char *argv[])
 
     free_barrier(bb);
 
-    for (size_t i = 0; i < count; i++)
-    {
-        // writeData[i] = readData[i];
-        printf("%f\n", writeData[i]);
-    }
+    // for (size_t i = 0; i < count; i++)
+    // {
+    //     // writeData[i] = readData[i];
+    //     printf("%f\n", writeData[i]);
+    // }
 
     munmap(sizes, sizes_bytes);
     munmap(fileArray, (count + 2) * sizeof(float));

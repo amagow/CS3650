@@ -202,22 +202,22 @@ int main(int argc, char *argv[])
     long *sizes = mmap(0, sizes_bytes, PROT_READ | PROT_WRITE,
                        MAP_SHARED | MAP_ANONYMOUS, -1, 0); // TODO: This should be shared
 
-    // Debugger output
-    // for (size_t i = 0; i < count; i++)
-    // {
-    //     printf("%f\n", data[i]);
-    // }
+    for (size_t i = 0; i < count; i++)
+    {
+        writeData[i] = readData[i];
+        printf("%f\n", writeData[i]);
+    }
 
     barrier *bb = make_barrier(P);
     sample_sort(readData, writeData, count, P, sizes, bb);
 
     free_barrier(bb);
 
-    for (size_t i = 0; i < count; i++)
-    {
-        writeData[i] = readData[i];
-        printf("%f\n", writeData[i]);
-    }
+    // for (size_t i = 0; i < count; i++)
+    // {
+    //     writeData[i] = readData[i];
+    //     printf("%f\n", writeData[i]);
+    // }
 
     munmap(sizes, sizes_bytes);
     munmap(fileArray, (count + 2) * sizeof(float));

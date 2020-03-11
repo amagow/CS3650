@@ -36,7 +36,7 @@ void barrier_wait(barrier *bb)
         {
             pthread_cond_wait(&(bb->cv), &(bb->m));
         }
-        pritnf("barrier wait");
+        printf("barrier wait\n");
     }
     else
     {

@@ -97,6 +97,7 @@ void *sort_worker(void *arg)
     qsort_floats(xs);
     // floats_print(xs);
     barrier_wait(t_arg->bb);
+    printf("reached %d", t_arg->pnum);
     for (int ii = start; ii < end; ii++)
     {
         // printf("process %d, stores float %F at %d\n", pnum, xs->data[ii], start + ii);

@@ -99,7 +99,7 @@ void *sort_worker(void *arg)
     qsort_floats(xs);
     // floats_print(xs);
     barrier_wait(t_arg->bb);
-    printf("reached 2 %d start %ld and end %ld\n", t_arg->pnum, start, end);
+    printf("reached 2 %d \nstart %ld and end %ld\n", t_arg->pnum, start, end);
     floats_print(xs);
     for (int ii = start; ii < end; ii++)
     {

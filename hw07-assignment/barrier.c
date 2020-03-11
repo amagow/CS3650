@@ -42,7 +42,7 @@ void barrier_wait(barrier *bb)
     {
         printf("barrier done and bb seen %d\n", bb->seen);
         pthread_cond_broadcast(&(bb->cv));
-        bb->seen = 0;
+        bb->seen -= 1;
     }
 
     pthread_mutex_unlock(&(bb->m));

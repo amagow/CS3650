@@ -34,7 +34,7 @@ void barrier_wait(barrier *bb)
     {
         pthread_cond_wait(&(bb->cv), &(bb->m));
     }
-    printf("barrier done");
+    printf("barrier done\n");
     pthread_cond_broadcast(&(bb->cv));
     pthread_mutex_unlock(&(bb->m));
 }

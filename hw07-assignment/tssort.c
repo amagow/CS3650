@@ -193,9 +193,9 @@ int main(int argc, char *argv[])
                              MAP_ANON | MAP_PRIVATE, -1, 0);
     //Next few bits are for the array data
     writeArray[1] = count;
-    writeArray = (float *) writeArray;
+    // writeArray = (float *) writeArray;
     float *readData = &fileArray[2];
-    float *writeData = &writeArray[2];
+    float *writeData = &((float *)writeArray)[2];
 
     long sizes_bytes = P * sizeof(long);
     long *sizes = mmap(0, sizes_bytes, PROT_READ | PROT_WRITE,

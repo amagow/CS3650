@@ -180,14 +180,13 @@ int main(int argc, char *argv[])
     }
 
     //Open file
-    int fd = open(fname, O_RDWR);
-    int fd2 = open(fname2, O_CREAT | O_RDWR | O_TRUNC);
+    int fd = open(fname, 0644);
+    int fd2 = open(fname2, O_CREAT | O_WRONLY | O_TRUNC, 0644);
     check_rv(fd);
     check_rv(fd2);
 
     //Open mmaps
     long count;
-    puts("sd");
     read(fd, &count, 8);
     float *fileArray = mmap(0, (count + 2) * sizeof(float), PROT_READ,
                             MAP_FILE | MAP_SHARED, fd, 0);

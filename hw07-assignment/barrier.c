@@ -30,7 +30,7 @@ void barrier_wait(barrier *bb)
     bb->seen += 1;
     int seen = bb->seen;
 
-    while (seen < bb->count)
+    if (seen < bb->count)
     {
         pthread_cond_wait(&(bb->cv), &(bb->m));
     }
@@ -40,7 +40,7 @@ void barrier_wait(barrier *bb)
 
 void free_barrier(barrier *bb)
 {
-    pthread_mutex_destroy(&(bb->m));
-    pthread_cond_destroy(&(bb->cv));
+    // pthread_mutex_destroy(&(bb->m));
+    // pthread_cond_destroy(&(bb->cv));
     free(bb);
 }

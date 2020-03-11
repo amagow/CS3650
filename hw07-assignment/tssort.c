@@ -204,7 +204,7 @@ int main(int argc, char *argv[])
     for (size_t i = 0; i < count; i++)
     {
         printf("%f\n", readData[i]);
-        writeData[i] = readData[i];
+        writeData[0] = readData[i];
         printf("%f\n", writeData[i]);
     }
 

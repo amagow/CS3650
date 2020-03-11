@@ -198,6 +198,7 @@ int main(int argc, char *argv[])
     float *readData = &fileArray[2];
     float *writeData = &writeArray[2];
 
+    puts("sd");
     long sizes_bytes = P * sizeof(long);
     long *sizes = mmap(0, sizes_bytes, PROT_READ | PROT_WRITE,
                        MAP_SHARED | MAP_ANONYMOUS, -1, 0); // TODO: This should be shared

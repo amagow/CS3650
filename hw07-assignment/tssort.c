@@ -180,7 +180,7 @@ int main(int argc, char *argv[])
     }
 
     //Open file
-    int fd = open(fname, 0644);
+    int fd = open(fname, O_RDWR);
     int fd2 = open(fname2, O_CREAT | O_WRONLY | O_TRUNC, 0644);
     check_rv(fd);
     check_rv(fd2);

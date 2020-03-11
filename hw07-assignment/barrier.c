@@ -8,31 +8,40 @@
 #include <unistd.h>
 
 #include "barrier.h"
+#include "util.h"
 
-barrier*
+barrier *
 make_barrier(int nn)
 {
-    barrier* bb = malloc(sizeof(barrier));
+    int rv;
+    barrier *bb = malloc(sizeof(barrier));
     assert(bb != 0);
 
-    bb->count = -7;  // TODO: These can't be right.
-    bb->seen  = 342;
+    check_rv(pthread_mutex_init(&(bb->cv), 0));
+    check_rv(pthread_cond_init(&(bb->cv), 0));
+
+    bb->count = nn;
+    bb->seen = 0;
     return bb;
 }
 
-void
-barrier_wait(barrier* bb)
+void barrier_wait(barrier *bb)
 {
-    while (1) {
-        sleep(1);
-        // TODO: Stop waiting.
-        // TODO: Don't sleep here.
+    pthread_mutex_lock(&(bb->m));
+    bb->seen += 1;
+    int seen = bb->seen;
+
+    while (seen < bb->count)
+    {
+        pthread_cond_wait(&(bb->cv), &(bb->m));
     }
+    pthread_cond_broadcast(&(bb->cv));
+    pthread_mutex_unlock(&(bb->m));
 }
 
-void
-free_barrier(barrier* bb)
+void free_barrier(barrier *bb)
 {
+    pthread_mutex_destroy(&(bb->m));
+    pthread_cond_destroy(&(bb->cv));
     free(bb);
 }
-

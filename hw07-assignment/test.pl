@@ -83,7 +83,12 @@ sub run_test {
     ok($nums == $nn, "ssort $pp ($nn) - partition counts");
 
     my $sorted = `tools/check-sorted data1.dat`;
-    ok(check_errors($sorted), "ssort $pp ($nn) - sorting");
+    my $code = ($? >> 8);
+    my $ok = ($? == 0);
+    ok($ok && check_errors($sorted), "ssort $pp ($nn) - sorting");
+    if (!$ok) {
+        say "# check-sorted failed with code $code";
+    }
 }
 
 run_test(10, 1);

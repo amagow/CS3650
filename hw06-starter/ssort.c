@@ -188,10 +188,11 @@ int main(int argc, char *argv[])
 
     free_barrier(bb);
 
-    // for (size_t i = 0; i < count; i++)
-    // {
-    //     printf("%f\n", data[i]);
-    // }
+    printf("%ld\n", ((long *)fileArray)[0]);
+    for (size_t i = 0; i < count; i++)
+    {
+        printf("%f\n", data[i]);
+    }
 
     munmap(sizes, sizes_bytes);
     munmap(fileCount, sizeof(long));

@@ -134,6 +134,7 @@ void run_sort_workers(float *readData, float *writeData, long size, int P, float
 
     for (int pp = 0; pp < P; ++pp)
     {
+        printf("loop");
         int rv = pthread_join(threads[pp], 0);
         check_rv(rv);
     }

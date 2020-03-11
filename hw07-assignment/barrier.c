@@ -39,7 +39,7 @@ void barrier_wait(barrier *bb)
     }
     else
     {
-        printf("barrier done\n");
+        printf("barrier done %d\n", seen);
         pthread_cond_broadcast(&(bb->cv));
         bb->seen -= 1;
     }

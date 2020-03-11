@@ -17,7 +17,7 @@ make_barrier(int nn)
     barrier *bb = malloc(sizeof(barrier));
     assert(bb != 0);
 
-    check_rv(pthread_mutex_init(&(bb->cv), 0));
+    check_rv(pthread_mutex_init(&(bb->m), 0));
     check_rv(pthread_cond_init(&(bb->cv), 0));
 
     bb->count = nn;

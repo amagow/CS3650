@@ -201,12 +201,12 @@ int main(int argc, char *argv[])
     long *sizes = mmap(0, sizes_bytes, PROT_READ | PROT_WRITE,
                        MAP_SHARED | MAP_ANONYMOUS, -1, 0); // TODO: This should be shared
 
-    for (size_t i = 0; i < count; i++)
-    {
+    // for (size_t i = 0; i < count; i++)
+    // {
         // printf("%f\n", readData[i]);
         // writeData[i] = readData[i];
-        printf("%f\n", writeData[i]);
-    }
+        // printf("%f\n", writeData[i]);
+    // }
 
     barrier *bb = make_barrier(P);
     sample_sort(readData, writeData, count, P, sizes, bb);

@@ -8,7 +8,7 @@
 #include <unistd.h>
 
 #include "barrier.h"
-#include "util.h"
+#include "utils.h"
 
 barrier *
 make_barrier(int nn)

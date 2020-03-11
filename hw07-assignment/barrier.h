@@ -6,18 +6,17 @@
 
 #include <pthread.h>
 
-typedef struct barrier {
+typedef struct barrier
+{
     // TODO: Need some synchronization stuff.
     pthread_mutex_t m;
     pthread_cond_t cv;
-    int   count;
-    int   seen;
+    int count;
+    int seen;
 } barrier;
 
-barrier* make_barrier(int nn);
-void barrier_wait(barrier* bb);
-void free_barrier(barrier* bb);
-
+barrier *make_barrier(int nn);
+void barrier_wait(barrier *bb);
+void free_barrier(barrier *bb);
 
 #endif
-

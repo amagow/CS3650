@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
     {
         float num = 0.0f;
         rv = fread(&num, sizeof(float), 1, data);
-        printf("%d and num:%num\n", rv, num);
+        printf("%d and num:%ld num\n", rv, num);
         assert(rv == 1);
 
         if (num == 0.0f)

@@ -127,7 +127,7 @@ void run_sort_workers(float *readData, float *writeData, long size, int P, float
         arg->sizes = sizes;
         arg->bb = bb;
 
-        int rv = pthread_create(&(threads[pp]), 0, sort_worker, arg);
+        int rv = pthread_create(&(threads[pp]), 0, sort_worker, (void *)arg);
         check_rv(rv);
     }
 

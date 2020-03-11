@@ -30,12 +30,19 @@ void barrier_wait(barrier *bb)
     bb->seen += 1;
     int seen = bb->seen;
 
-    while (seen < bb->count)
+    if (seen < bb->count)
     {
-        pthread_cond_wait(&(bb->cv), &(bb->m));
+        while (seen < bb->count)
+        {
+            pthread_cond_wait(&(bb->cv), &(bb->m));
+        }
     }
-    printf("barrier done\n");
-    pthread_cond_broadcast(&(bb->cv));
+    else
+    {
+        printf("barrier done\n");
+        pthread_cond_broadcast(&(bb->cv));
+    }
+
     pthread_mutex_unlock(&(bb->m));
 }
 

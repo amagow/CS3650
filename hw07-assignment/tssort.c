@@ -187,8 +187,8 @@ int main(int argc, char *argv[])
 
     //Open mmaps
     long count;
-    read(fd, &count, 8);
     puts("sd");
+    read(fd, &count, 8);
     float *fileArray = mmap(0, (count + 2) * sizeof(float), PROT_READ,
                             MAP_FILE | MAP_SHARED, fd, 0);
     write(fd2, &count, 8);

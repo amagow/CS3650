@@ -82,7 +82,7 @@ void *sort_worker(void *arg)
     printf("%d: start %.04f, count %ld\n", t_arg->pnum, t_arg->samps->data[t_arg->pnum], xs->size);
     t_arg->sizes[t_arg->pnum] = xs->size;
 
-    printf("reached 0 %d\n", t_arg->pnum);
+    // printf("reached 0 %d\n", t_arg->pnum);
     barrier_wait(t_arg->bb);
 
     printf("reached 1 %d\n", t_arg->pnum);
@@ -201,12 +201,12 @@ int main(int argc, char *argv[])
     long *sizes = mmap(0, sizes_bytes, PROT_READ | PROT_WRITE,
                        MAP_SHARED | MAP_ANONYMOUS, -1, 0); // TODO: This should be shared
 
-    for (size_t i = 0; i < count; i++)
-    {
-        // printf("%f\n", readData[i]);
-        writeData[i] = readData[i];
-        printf("%f\n", writeData[i]);
-    }
+    // for (size_t i = 0; i < count; i++)
+    // {
+    //     // printf("%f\n", readData[i]);
+    //     writeData[i] = readData[i];
+    //     printf("%f\n", writeData[i]);
+    // }
 
     barrier *bb = make_barrier(P);
     sample_sort(readData, writeData, count, P, sizes, bb);

@@ -198,7 +198,7 @@ int main(int argc, char *argv[])
 
     long sizes_bytes = P * sizeof(long);
     long *sizes = mmap(0, sizes_bytes, PROT_READ | PROT_WRITE,
-                       MAP_SHARED | MAP_ANONYMOUS, -1, 0); // TODO: This should be shared
+                       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0); // TODO: This should be shared
 
     // for (size_t i = 0; i < count; i++)
     // {

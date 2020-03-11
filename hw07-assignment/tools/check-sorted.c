@@ -36,6 +36,7 @@ main(int argc, char* argv[])
     for (long ii = 0; ii < count; ++ii) {
         float num = 0.0f;
         rv = fread(&num, sizeof(float), 1, data);
+        printf("%d",rv);
         assert(rv == 1);
 
         if (num == 0.0f) {

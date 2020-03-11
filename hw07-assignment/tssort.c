@@ -213,12 +213,12 @@ int main(int argc, char *argv[])
 
     free_barrier(bb);
 
-    // printf("%ld\n",((long *)fileArray)[0]);
-    // for (size_t i = 0; i < count; i++)
-    // {
-    //     // writeData[i] = readData[i];
-    //     printf("%f\n", writeData[i]);
-    // }
+    printf("%ld\n",((long *)fileArray)[0]);
+    for (size_t i = 0; i < count; i++)
+    {
+        // writeData[i] = readData[i];
+        printf("%f\n", writeData[i]);
+    }
 
     munmap(sizes, sizes_bytes);
     munmap(fileArray, (count + 2) * sizeof(float));

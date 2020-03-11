@@ -28,20 +28,21 @@ void barrier_wait(barrier *bb)
 {
     pthread_mutex_lock(&(bb->m));
     bb->seen += 1;
-    int seen = bb->seen;
+    // int seen = bb->seen;
 
-    if (seen < bb->count)
+    if (bb->seen < bb->count)
     {
-        while (seen < bb->count)
+        while (bb->seen < bb->count)
         {
             pthread_cond_wait(&(bb->cv), &(bb->m));
         }
+        pritnf("barrier wait");
     }
     else
     {
-        printf("barrier done %d and bb seen %d\n", seen, bb->seen);
+        printf("barrier done and bb seen %d\n", bb->seen);
         pthread_cond_broadcast(&(bb->cv));
-        // bb->seen = 0;
+        bb->seen = 0;
     }
 
     pthread_mutex_unlock(&(bb->m));

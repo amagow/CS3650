@@ -127,7 +127,7 @@ void run_sort_workers(float *readData, float *writeData, long size, int P, float
         arg->sizes = sizes;
         arg->bb = bb;
 
-        int rv = pthread_create(&(threads[pp]), 0, sort_worker, (void *) arg);
+        int rv = pthread_create(&(threads[pp]), 0, sort_worker, (void *)arg);
         check_rv(rv);
     }
 
@@ -178,7 +178,7 @@ int main(int argc, char *argv[])
     }
 
     //Open file
-    int fd = open(fname, O_RDWR);
+    int fd = open(fname, O_RDONLY);
     int fd2 = open(fname2, O_CREAT | O_WRONLY | O_TRUNC, 0644);
     check_rv(fd);
     check_rv(fd2);

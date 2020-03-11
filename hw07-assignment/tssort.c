@@ -189,10 +189,10 @@ int main(int argc, char *argv[])
     long count;
     read(fd, &count, 8);
     float *fileArray = mmap(0, (count + 2) * sizeof(float), PROT_READ,
-                            MAP_FILE | MAP_SHARED, fd, 0);
+                            MAP_FILE | MAP_PRIVATE, fd, 0);
     write(fd2, &count, 8);
     float *writeArray = mmap(0, (count + 2) * sizeof(float), PROT_WRITE | PROT_READ,
-                             MAP_FILE | MAP_SHARED, fd2, 0);
+                             MAP_FILE | MAP_PRIVATE, fd2, 0);
     //Next few bits are for the array data
     float *readData = &fileArray[2];
     float *writeData = &writeArray[2];

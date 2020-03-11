@@ -190,7 +190,7 @@ int main(int argc, char *argv[])
     read(fd, &count, 8);
     float *fileArray = mmap(0, (count + 2) * sizeof(float), PROT_READ,
                             MAP_FILE | MAP_SHARED, fd, 0);
-
+    puts("sd");
     write(fd2, &count, 8);
     float *writeArray = mmap(0, (count + 2) * sizeof(float), PROT_WRITE,
                              MAP_FILE | MAP_SHARED, fd2, 0);
@@ -198,7 +198,6 @@ int main(int argc, char *argv[])
     float *readData = &fileArray[2];
     float *writeData = &writeArray[2];
 
-    puts("sd");
     long sizes_bytes = P * sizeof(long);
     long *sizes = mmap(0, sizes_bytes, PROT_READ | PROT_WRITE,
                        MAP_SHARED | MAP_ANONYMOUS, -1, 0); // TODO: This should be shared

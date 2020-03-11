@@ -191,7 +191,7 @@ int main(int argc, char *argv[])
     float *fileArray = mmap(0, (count + 2) * sizeof(float), PROT_READ,
                             MAP_FILE | MAP_SHARED, fd, 0);
     write(fd2, &count, 8);
-    float *writeArray = mmap(0, (count + 2) * sizeof(float), PROT_WRITE,
+    float *writeArray = mmap(0, (count + 2) * sizeof(float), PROT_WRITE | PROT_READ,
                              MAP_FILE | MAP_SHARED, fd2, 0);
     //Next few bits are for the array data
     float *readData = &fileArray[2];
@@ -204,7 +204,7 @@ int main(int argc, char *argv[])
     for (size_t i = 0; i < count; i++)
     {
         printf("%f\n", readData[i]);
-        writeData[0] = readData[i];
+        writeData[i] = readData[i];
         printf("%f\n", writeData[i]);
     }
 

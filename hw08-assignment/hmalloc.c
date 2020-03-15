@@ -79,7 +79,7 @@ void insert_free_node(free_block *block)
 {
     if (!free_head)
     {
-        free_head->next = block;
+        free_head = block;
     }
     else
     {

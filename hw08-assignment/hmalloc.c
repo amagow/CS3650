@@ -85,58 +85,143 @@ void insert_free_node(free_block *block)
     {
         free_block *cur = free_head;
         free_block *prev = 0;
-        while (cur)
+        // while (cur)
+        // {
+        //     if ((void *)cur > (void *)block)
+        //     {
+        //         size_t p_size = 0;
+        //         if (prev)
+        //             p_size = prev->size;
+
+        //         if (((void *)prev + p_size == (void *)block) && ((void *)block + block->size == (void *)cur))
+        //         {
+        //             prev->size = prev->size + block->size + cur->size;
+        //             prev->next = cur->next;
+        //         }
+        //         else if ((void *)prev + p_size == (void *)block)
+        //         {
+        //             prev->size = prev->size + block->size;
+        //         }
+        //         else if ((void *)block + block->size == (void *)cur)
+        //         {
+        //             block->size = block->size + cur->size;
+        //             block->next = cur->next;
+        //             if (prev)
+        //             {
+        //                 prev->next = block;
+        //             }
+        //             // else
+        //             // {
+        //             //     free_head = block;
+        //             // }
+        //         }
+        //         else
+        //         {
+        //             block->next = cur;
+        //             if (prev)
+        //             {
+        //                 prev->next = block;
+        //             }
+        //             // else
+        //             // {
+        //             //     free_head = block;
+        //             // }
+        //         }
+
+        //         if (!prev)
+        //         {
+        //             free_head = block;
+        //         }
+
+        //         break;
+        //     }
+        //     prev = cur;
+        //     cur = cur->next;
+        // }
+        while (cur != 0)
         {
+            // if the current node is greater than the given address,
+            // insert the given node after the previous node
             if ((void *)cur > (void *)block)
             {
-                size_t p_size = 0;
-                if (prev)
-                    p_size = prev->size;
+                //TODO: tring to coalesce on insertion... could be wrong.
+                // commented out old stuff so if all fails, just uncomment that and delete whatever else here
 
-                if (((void *)prev + p_size == (void *)block) && ((void *)block + block->size == (void *)cur))
+                // Get the size of the previous node, unless it is null
+                size_t prev_size = 0;
+                if (prev != 0)
                 {
-                    prev->size = p_size + block->size + cur->size;
+                    prev_size = prev->size;
+                }
+
+                // The given node is adjacent to the nodes on both sides of it (prev and cur)
+                // Need to coalesce on both sides
+                if (((void *)prev + prev_size == (void *)block) && ((void *)block + block->size == (void *)cur))
+                {
+                    // basically, discard the given node and the current node
+                    // just keep the previous node, and adjust size accordingly
+                    prev->size = prev->size + block->size + cur->size;
                     prev->next = cur->next;
                 }
-                else if ((void *)prev + p_size == (void *)block)
+
+                // The given node is adjacent to the end of the previous node
+                // Need to coalesce
+                else if ((void *)prev + prev_size == (void *)block)
                 {
-                    prev->size = p_size + block->size;
-                }
-                else if ((void *)block + block->size == (void *)cur)
-                {
-                    block->size = block->size + cur->size;
-                    block->next = cur->next;
-                    if (prev)
-                    {
-                        prev->next = block;
-                    }
-                    // else
-                    // {
-                    //     free_head = block;
-                    // }
-                }
-                else
-                {
-                    block->next = cur;
-                    if (prev)
-                    {
-                        prev->next = block;
-                    }
-                    // else
-                    // {
-                    //     free_head = block;
-                    // }
+                    // just increase the size of the previous node to include the given node
+                    // basically, discard the given node b/c it is now part of the prev node
+                    prev->size = prev->size + block->size;
                 }
 
-                if (!prev)
+                // The given node is adjacent to the beginning of the current node
+                // Need to coalesce
+                else if ((void *)block + block->size == (void *)cur)
+                {
+                    // increase the size of the given node to include the current node size
+                    block->size = block->size + cur->size;
+
+                    // basically, discard the current node and replace it with the given node
+                    if (prev != 0)
+                    {
+                        prev->next = block; //point the previous node to the given node if prevous is not null
+                    }
+                    block->next = cur->next; //point the given node to the current's next node
+                }
+
+                // No coalescing necessary because the given node is not adjacent to any existing blocks
+                // Just insert the node
+                else
+                {
+                    // set the previous' next node to the given node if previous is not null
+                    if (prev != 0)
+                    {
+                        prev->next = block;
+                    }
+                    // set the given node's next to the current node
+                    block->next = cur;
+                }
+
+                // If the previous node was null, then we are inserting at the beginning of the free list
+                // So we need to update free_head
+                if (prev == 0)
                 {
                     free_head = block;
                 }
 
+                // break because the node has been inserted or coalesced
                 break;
+
+                //TODO delete below
+                /*
+      // set the previous' next node to the given node
+      prev->next = node;
+      // set the given node's next to the current node
+      node->next = cur;
+      break;
+      */
             }
-            prev = cur;
-            cur = cur->next;
+            prev = cur;      // set the prev node to the current node
+            cur = cur->next; // set the current node to the next node
         }
     }
 }

@@ -150,7 +150,7 @@ hmalloc(size_t size)
 {
     stats.chunks_allocated += 1;
     size += sizeof(size_t);
-    size < sizeof(free_block) ? sizeof(free_block) : size;
+    // size < sizeof(free_block) ? sizeof(free_block) : size;
 
     // TODO: Actually allocate memory with mmap and a free list.
     if (size < PAGE_SIZE)

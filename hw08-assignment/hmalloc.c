@@ -127,14 +127,14 @@ void insert_free_node(free_block *node)
     //     prev = cur;
     //     cur = cur->next;
     // }
-    if (free_list_head == 0)
+    if (free_head == 0)
     {
-        free_list_head = node;
+        free_head = node;
         return;
     }
 
-    free_list_node *cur = free_list_head;
-    free_list_node *prev = 0;
+    free_block *cur = free_head;
+    free_block *prev = 0;
     while (cur != 0)
     {
         // if the current node is greater than the given address,
@@ -199,10 +199,10 @@ void insert_free_node(free_block *node)
             }
 
             // If the previous node was null, then we are inserting at the beginning of the free list
-            // So we need to update free_list_head
+            // So we need to update free_head
             if (prev == 0)
             {
-                free_list_head = node;
+                free_head = node;
             }
 
             // break because the node has been inserted or coalesced

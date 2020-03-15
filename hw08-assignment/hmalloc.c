@@ -186,7 +186,7 @@ hmalloc(size_t size)
             block->size = PAGE_SIZE;
         }
 
-        if (block->size > size && (block->size - size >= sizeof(free_block)))
+        if ((block->size > size) && (block->size - size >= sizeof(free_block)))
         {
             void *free_address = (void *)block + size;
 

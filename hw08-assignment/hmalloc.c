@@ -90,7 +90,7 @@ void insert_free_node(free_block *block)
             if ((void *)cur > (void *)block)
             {
                 size_t p_size;
-                prev->size ? (p_size = prev->size) : (p_size = 0);
+                prev ? (p_size = prev->size) : (p_size = 0);
 
                 if (((void *)prev + p_size == (void *)block) && ((void *)block + block->size == (void *)cur))
                 {

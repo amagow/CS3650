@@ -89,14 +89,17 @@ void insert_free_node(free_block *block)
         {
             if ((void *)cur > (void *)block)
             {
-                if (((void *)prev + prev->size == (void *)block) && ((void *)block + block->size == (void *)cur))
+                size_t p_size;
+                prev->size ? (p_size = prev->size) : (p_size = 0);
+
+                if (((void *)prev + p_size == (void *)block) && ((void *)block + block->size == (void *)cur))
                 {
-                    prev->size = prev->size + block->size + cur->size;
+                    prev->size = p_size + block->size + cur->size;
                     prev->next = cur->next;
                 }
-                else if ((void *)prev + prev->size == (void *)block)
+                else if ((void *)prev + p_size == (void *)block)
                 {
-                    prev->size = prev->size + block->size;
+                    prev->size = p_size + block->size;
                 }
                 else if ((void *)block + block->size == (void *)cur)
                 {
@@ -106,10 +109,10 @@ void insert_free_node(free_block *block)
                     {
                         prev->next = block;
                     }
-                    else
-                    {
-                        free_head = block;
-                    }
+                    // else
+                    // {
+                    //     free_head = block;
+                    // }
                 }
                 else
                 {
@@ -118,11 +121,17 @@ void insert_free_node(free_block *block)
                     {
                         prev->next = block;
                     }
-                    else
-                    {
-                        free_head = block;
-                    }
+                    // else
+                    // {
+                    //     free_head = block;
+                    // }
                 }
+
+                if (!prev)
+                {
+                    free_head = block;
+                }
+
                 break;
             }
             prev = cur;

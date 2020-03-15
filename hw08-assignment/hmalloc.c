@@ -192,7 +192,7 @@ void insert_free_node(free_block *node)
       // If the previous node was null, then we are inserting at the beginning of the free list
       // So we need to update free_list_head
       if (prev == 0) {
-        free_list_head = node;
+        free_head = node;
       }
 
       // break because the node has been inserted or coalesced

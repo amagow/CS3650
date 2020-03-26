@@ -18,6 +18,6 @@ void hprintstats();
 
 void *hmalloc(size_t size, pthread_mutex_t lock);
 void hfree(void *item, pthread_mutex_t lock);
-void *hmrealloc(void *item, size_t size, pthread_mutex_t lock);
+void *hrealloc(void *item, size_t size, pthread_mutex_t lock);
 
 #endif

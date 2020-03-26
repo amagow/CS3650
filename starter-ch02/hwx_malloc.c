@@ -33,5 +33,5 @@ void xfree(void *ptr)
 void *
 xrealloc(void *prev, size_t bytes)
 {
-    return hmrealloc(prev, bytes, lock);
+    return hrealloc(prev, bytes, lock);
 }

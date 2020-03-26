@@ -3,7 +3,6 @@
 #include <sys/mman.h>
 #include <stdio.h>
 #include <assert.h>
-#include <pthread.h>
 
 #include "hmalloc.h"
 
@@ -26,11 +25,10 @@ typedef struct free_block
 const size_t PAGE_SIZE = 4096;
 static hm_stats stats; // This initializes the stats to 0.
 static free_block *free_head;
-// pthread_mutex_t lock;
-// int lockSet = 0;
 
 long free_list_length()
 {
+    // TODO: Calculate the length of the free list.
     long len = 0;
     free_block *curr = free_head;
     while (curr)
@@ -160,7 +158,7 @@ For requests with (B >= 1 page = 4096 bytes):
 */
 
 void *
-hmalloc(size_t size, pthread_mutex_t pthread_mutex_lock)
+hmalloc(size_t size)
 {
     stats.chunks_allocated += 1;
     size += sizeof(size_t);
@@ -223,7 +221,7 @@ hmalloc(size_t size, pthread_mutex_t pthread_mutex_lock)
     }
 }
 
-void hfree(void *item, pthread_mutex_t lock)
+void hfree(void *item)
 {
     stats.chunks_freed += 1;
 
@@ -241,15 +239,4 @@ void hfree(void *item, pthread_mutex_t lock)
         assert(rv != -1);
         stats.pages_unmapped += n_pages;
     }
-}
-
-void *hrealloc(void *item, size_t bytes, pthread_mutex_t lock)
-{
-    //If pointer is null return same functionality as hmalloc
-    if (!item)
-    {
-        return hmalloc(bytes, lock);
-    }
-
-    return 0;
 }

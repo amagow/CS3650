@@ -1,8 +1,6 @@
-#include <pthread.h>
 
-#include "hmalloc.h"
 #include "xmalloc.h"
-pthread_mutex_t lock;
+
 // TODO: This file should be replaced by another allocator implementation.
 //
 // If you have a working allocator from the previous HW, use that.
@@ -17,21 +15,22 @@ pthread_mutex_t lock;
 //    provided xv6 allocator.
 //  - Implement the "realloc" function for this allocator.
 
-void *
+void*
 xmalloc(size_t bytes)
 {
-    pthread_mutex_init(&lock, 0);
-    return hmalloc(bytes, lock);
+    // TODO: replace this with malloc
+    return 0;
 }
 
-void xfree(void *ptr)
+void
+xfree(void* ptr)
 {
-    return hfree(ptr, lock);
-    pthread_mutex_destroy(&lock);
+    // TODO: replace this with free
 }
 
-void *
-xrealloc(void *prev, size_t bytes)
+void*
+xrealloc(void* prev, size_t bytes)
 {
-    return hrealloc(prev, bytes, lock);
+    // TODO: write realloc
+    return 0;
 }

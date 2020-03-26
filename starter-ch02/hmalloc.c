@@ -26,8 +26,8 @@ typedef struct free_block
 const size_t PAGE_SIZE = 4096;
 static hm_stats stats; // This initializes the stats to 0.
 static free_block *free_head;
-pthread_mutex_t lock;
-int lockSet = 0;
+// pthread_mutex_t lock;
+// int lockSet = 0;
 
 long free_list_length()
 {
@@ -160,7 +160,7 @@ For requests with (B >= 1 page = 4096 bytes):
 */
 
 void *
-hmalloc(size_t size)
+hmalloc(size_t size, pthread_mutex_t pthread_mutex_lock)
 {
     stats.chunks_allocated += 1;
     size += sizeof(size_t);
@@ -223,7 +223,7 @@ hmalloc(size_t size)
     }
 }
 
-void hfree(void *item)
+void hfree(void *item, pthread_mutex_t lock)
 {
     stats.chunks_freed += 1;
 
@@ -243,10 +243,13 @@ void hfree(void *item)
     }
 }
 
-void *hrealloc(void *item, size_t bytes)
+void *hrealloc(void *item, size_t bytes, pthread_mutex_t lock)
 {
     //If pointer is null return same functionality as hmalloc
-    if(!item){
-        hmalloc(bytes);
+    if (!item)
+    {
+        return hmalloc(bytes, lock);
     }
+
+    return 0;
 }

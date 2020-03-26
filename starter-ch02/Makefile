@@ -19,10 +19,10 @@ collatz-list-sys: list_main.o sys_malloc.o
 collatz-ivec-sys: ivec_main.o sys_malloc.o
 	gcc $(CFLAGS) -o $@ $^ $(LDLIBS)
 
-collatz-list-hwx: list_main.o hwx_malloc.o
+collatz-list-hwx: list_main.o hwx_malloc.o hmalloc.o
 	gcc $(CFLAGS) -o $@ $^ $(LDLIBS)
 
-collatz-ivec-hwx: ivec_main.o hwx_malloc.o
+collatz-ivec-hwx: ivec_main.o hwx_malloc.o hmalloc.o
 	gcc $(CFLAGS) -o $@ $^ $(LDLIBS)
 
 collatz-list-opt: list_main.o opt_malloc.o
@@ -37,7 +37,7 @@ frag-opt: frag_main.o opt_malloc.o
 frag-sys: frag_main.o sys_malloc.o
 	gcc $(CFLAGS) -o $@ $^ $(LDLIBS)
 
-frag-hwx: frag_main.o hwx_malloc.o
+frag-hwx: frag_main.o hwx_malloc.o hmalloc.o
 	gcc $(CFLAGS) -o $@ $^ $(LDLIBS)
 
 %.o : %.c $(HDRS) Makefile
